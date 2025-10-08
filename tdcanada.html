@@ -1,0 +1,4606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TD Bank Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* All original CSS preserved exactly as provided */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #00A850 0%, #007C3E 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 450px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .screen {
+            padding: 30px;
+            display: none;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        .login-header, .register-header, .dashboard-header, .admin-dashboard-header {
+            background-color: #00A850;
+            padding: 25px;
+            text-align: center;
+            position: relative;
+        }
+
+        .admin-dashboard-header {
+            background-color: #1a3c6e;
+        }
+
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .td-logo {
+            width: 50px;
+            height: 50px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #00A850;
+            font-weight: bold;
+            font-size: 22px;
+            margin: 0 auto;
+        }
+
+        .admin-dashboard-header .td-logo {
+            color: #1a3c6e;
+        }
+
+        .login-header h1, .register-header h1, .dashboard-header h1, .admin-dashboard-header h1 {
+            color: white;
+            font-size: 24px;
+            font-weight: 500;
+            margin-top: 10px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .input-group input, .input-group select, .input-group textarea {
+            width: 100%;
+            padding: 14px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+            padding-right: 45px;
+        }
+
+        .input-group input:focus, .input-group select:focus, .input-group textarea:focus {
+            border-color: #00A850;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(0, 168, 80, 0.2);
+        }
+
+        /* REMOVED: Password and username toggle styles */
+        .forgot-password {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .forgot-password a {
+            color: #00A850;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .remember-me input {
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
+            accent-color: #00A850;
+        }
+
+        .remember-me label {
+            font-weight: 500;
+            color: #333;
+            font-size: 15px;
+        }
+
+        .btn {
+            background-color: #00A850;
+            color: white;
+            border: none;
+            padding: 14px;
+            width: 100%;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        .btn:hover {
+            background-color: #007C3E;
+        }
+
+        .btn-secondary {
+            background-color: #f5f5f5;
+            color: #00A850;
+        }
+
+        .btn-secondary:hover {
+            background-color: #e8e8e8;
+        }
+
+        .btn-admin {
+            background-color: #1a3c6e;
+        }
+
+        .btn-admin:hover {
+            background-color: #0f2749;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+
+        .btn-export {
+            background-color: #28a745;
+        }
+
+        .btn-export:hover {
+            background-color: #218838;
+        }
+
+        .signup-section, .login-section {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .signup-section p, .login-section p {
+            color: #666;
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+
+        .signup-section a, .login-section a {
+            color: #00A850;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .signup-section a:hover, .login-section a:hover {
+            text-decoration: underline;
+        }
+
+        .bold {
+            font-weight: 700;
+        }
+
+        /* Dashboard Styles */
+        .dashboard-content, .admin-dashboard-content {
+            padding: 30px;
+            background-color: #f8f9fa;
+        }
+
+        /* Action buttons section with green background */
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            gap: 12px;
+            background-color: #00A850;
+            border-radius: 8px;
+            padding: 15px;
+        }
+
+        /* Action buttons with white text and icons */
+        .action-btn {
+            background-color: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 8px;
+            padding: 15px 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: white;
+        }
+
+        .action-btn:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .action-btn i {
+            color: white;
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .action-btn span {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .accounts-section, .admin-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-header h2 {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        /* Total Balance section with green background */
+        .account-summary {
+            font-size: 14px;
+            margin-bottom: 15px;
+            background-color: #00A850;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .account-summary p {
+            color: white;
+            margin-bottom: 0;
+        }
+
+        .account-summary strong {
+            font-size: 18px;
+            color: white;
+        }
+
+        .view-all {
+            color: #00A850;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .view-all:hover {
+            text-decoration: underline;
+        }
+
+        .account-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .account-card:last-child {
+            border-bottom: none;
+        }
+
+        .account-info h3 {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .account-info p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .account-balance {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            word-break: break-word;
+            max-width: 120px;
+            text-align: right;
+        }
+
+        .logout-btn {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .admin-message {
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            text-align: center;
+            display: none;
+        }
+
+        .success-message {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .error-message {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        /* Footer Styles */
+        .footer {
+            background-color: #f5f5f5;
+            padding: 25px 20px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .footer-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            cursor: pointer;
+            flex: 1;
+            min-width: 90px;
+            max-width: 120px;
+            transition: transform 0.3s;
+        }
+
+        .footer-icon:hover {
+            transform: translateY(-5px);
+        }
+
+        .icon-circle {
+            width: 60px;
+            height: 60px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e0e0e0;
+            transition: all 0.3s;
+        }
+
+        .footer-icon:hover .icon-circle {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            background-color: #f9f9f9;
+        }
+
+        .icon-circle i {
+            color: #00A850;
+            font-size: 22px;
+        }
+
+        .footer-text {
+            color: #000;
+            font-size: 13px;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                max-width: 100%;
+            }
+
+            .action-buttons {
+                flex-wrap: wrap;
+            }
+
+            .action-btn {
+                min-width: calc(50% - 10px);
+                margin-bottom: 10px;
+            }
+
+            .footer {
+                padding: 20px 10px;
+            }
+
+            .footer-icon {
+                min-width: 80px;
+            }
+
+            .icon-circle {
+                width: 50px;
+                height: 50px;
+            }
+
+            .icon-circle i {
+                font-size: 18px;
+            }
+
+            .footer-text {
+                font-size: 12px;
+            }
+
+            .dashboard-content, .admin-dashboard-content {
+                padding: 20px;
+            }
+
+            .account-balance {
+                font-size: 14px;
+                max-width: 100px;
+            }
+        }
+
+        .email-notification {
+            background-color: #e8f4f8;
+            border-left: 4px solid #00A850;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            display: none;
+        }
+
+        .email-notification p {
+            margin: 5px 0;
+            color: #333;
+        }
+
+        .email-notification .email-address {
+            font-weight: 600;
+            color: #00A850;
+        }
+
+        /* Admin Dashboard Styles */
+        .admin-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .admin-btn {
+            background-color: #1a3c6e;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .admin-btn:hover {
+            background-color: #0f2749;
+        }
+
+        .admin-form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .admin-form.active {
+            display: block;
+        }
+
+        .user-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .user-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .user-card:last-child {
+            border-bottom: none;
+        }
+
+        .user-info h3 {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .user-info p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .user-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-active {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .status-inactive {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .user-actions {
+            display: flex;
+            gap: 5px;
+        }
+
+        .user-action-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #1a3c6e;
+            font-size: 14px;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .user-action-btn:hover {
+            background-color: #f0f0f0;
+        }
+
+        .user-action-btn.delete {
+            color: #dc3545;
+        }
+
+        .user-action-btn.delete:hover {
+            background-color: #f8d7da;
+        }
+
+        .codes-display {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .code-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+        }
+
+        .code-label {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .code-value {
+            font-family: monospace;
+            color: #1a3c6e;
+        }
+
+        .transfer-disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .transfer-disabled:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: none;
+        }
+
+        /* Time and Date Display */
+        .time-date-display {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .current-time {
+            font-size: 28px;
+            font-weight: 600;
+            color: #00A850;
+            margin-bottom: 5px;
+        }
+
+        .current-date {
+            font-size: 16px;
+            color: #666;
+        }
+
+        /* Transaction History Styles */
+        .transaction-history {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .transaction-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .transaction-item:last-child {
+            border-bottom: none;
+        }
+
+        .transaction-info h4 {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 3px;
+        }
+
+        .transaction-info p {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .transaction-amount {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .transaction-credit {
+            color: #00A850;
+        }
+
+        .transaction-debit {
+            color: #dc3545;
+        }
+
+        .transaction-actions {
+            display: flex;
+            gap: 5px;
+        }
+
+        .transaction-action-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #1a3c6e;
+            font-size: 12px;
+        }
+
+        .transaction-action-btn:hover {
+            color: #0f2749;
+        }
+
+        /* Admin Time Control */
+        .time-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .time-control-btn {
+            padding: 8px 15px;
+            border: 1px solid #ddd;
+            background-color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .time-control-btn.active {
+            background-color: #1a3c6e;
+            color: white;
+            border-color: #1a3c6e;
+        }
+
+        .time-control-btn:hover {
+            background-color: #f0f0f0;
+        }
+
+        .time-control-btn.active:hover {
+            background-color: #0f2749;
+        }
+
+        /* Edit History Form */
+        .edit-history-form {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            display: none;
+        }
+
+        .edit-history-form.active {
+            display: block;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .form-actions button {
+            flex: 1;
+        }
+
+        /* Audit Trail Styles */
+        .audit-trail {
+            max-height: 200px;
+            overflow-y: auto;
+            margin-top: 15px;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            padding: 10px;
+            background-color: #f9f9f9;
+        }
+
+        .audit-item {
+            padding: 8px;
+            border-bottom: 1px solid #eee;
+            font-size: 12px;
+        }
+
+        .audit-item:last-child {
+            border-bottom: none;
+        }
+
+        .audit-admin {
+            font-weight: 600;
+            color: #1a3c6e;
+        }
+
+        .audit-change {
+            color: #666;
+        }
+
+        .audit-timestamp {
+            color: #999;
+            font-size: 11px;
+        }
+
+        /* User Data Table Styles */
+        .user-data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .user-data-table th, .user-data-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        .user-data-table th {
+            background-color: #f2f2f2;
+            font-weight: 600;
+        }
+
+        .user-data-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .user-data-table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .export-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .export-btn {
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .export-btn:hover {
+            background-color: #218838;
+        }
+
+        .export-email-form {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            display: none;
+        }
+
+        .export-email-form.active {
+            display: block;
+        }
+
+        /* Account Type Badge */
+        .account-type-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .account-type-savings {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .account-type-checking {
+            background-color: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .account-type-display {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* User Details Modal */
+        .user-details-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .user-details-modal.active {
+            display: flex;
+        }
+
+        .user-details-content {
+            background-color: white;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .user-details-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .user-details-header h2 {
+            color: #1a3c6e;
+            margin: 0;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .close-modal:hover {
+            color: #333;
+        }
+
+        .user-details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .user-detail-item {
+            margin-bottom: 15px;
+        }
+
+        .user-detail-label {
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .user-detail-value {
+            color: #333;
+            font-size: 16px;
+            padding: 8px 12px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            border-left: 3px solid #1a3c6e;
+        }
+
+        .password-display {
+            font-family: monospace;
+            letter-spacing: 1px;
+        }
+
+        .masked-password {
+            color: #999;
+        }
+
+        .toggle-password-visibility {
+            background: none;
+            border: none;
+            color: #1a3c6e;
+            cursor: pointer;
+            margin-left: 10px;
+            font-size: 14px;
+        }
+
+        .user-transactions {
+            margin-top: 20px;
+        }
+
+        .user-transactions h3 {
+            margin-bottom: 15px;
+            color: #1a3c6e;
+        }
+
+        @media (max-width: 768px) {
+            .user-details-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .user-details-content {
+                width: 95%;
+                padding: 15px;
+            }
+        }
+
+        /* New styles for date-time input in admin deposit form */
+        .datetime-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .datetime-group .input-group {
+            flex: 1;
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 480px) {
+            .datetime-group {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+
+        .checkbox-group {
+            margin-bottom: 15px;
+        }
+
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            font-weight: normal;
+            cursor: pointer;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            margin-right: 8px;
+            width: 18px;
+            height: 18px;
+            accent-color: #1a3c6e;
+        }
+
+        /* NEW: User Management Table Styles */
+        .user-management-table-container {
+            overflow-x: auto;
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: white;
+        }
+
+        .user-management-table {
+            width: 100%;
+            min-width: 1200px;
+            border-collapse: collapse;
+        }
+
+        .user-management-table th {
+            background-color: #1a3c6e;
+            color: white;
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .user-management-table td {
+            padding: 10px 15px;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+        }
+
+        .user-management-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .user-management-table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .user-management-table .password-cell {
+            font-family: monospace;
+            position: relative;
+        }
+
+        .user-management-table .password-toggle-btn {
+            background: none;
+            border: none;
+            color: #1a3c6e;
+            cursor: pointer;
+            margin-left: 5px;
+            font-size: 12px;
+        }
+
+        .user-management-table .status-active {
+            color: #155724;
+            font-weight: 600;
+        }
+
+        .user-management-table .status-inactive {
+            color: #721c24;
+            font-weight: 600;
+        }
+
+        .user-management-table .account-type-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .user-management-table .account-type-savings {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .user-management-table .account-type-checking {
+            background-color: #d1ecf1;
+            color: #0c5460;
+        }
+
+        /* Transfer Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            overflow: auto;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 0;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            animation: modalFadeIn 0.3s;
+        }
+
+        .modal-header {
+            background-color: #00A850;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 500;
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .transfer-detail-item {
+            margin-bottom: 12px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 8px;
+        }
+
+        .transfer-detail-label {
+            font-weight: 600;
+            color: #555;
+            font-size: 14px;
+        }
+
+        .transfer-detail-value {
+            color: #333;
+            font-size: 16px;
+        }
+
+        .success-icon {
+            text-align: center;
+            font-size: 48px;
+            color: #00A850;
+            margin: 20px 0;
+        }
+
+        @keyframes modalFadeIn {
+            from {opacity: 0; transform: translateY(-20px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+
+        .user-management-table .account-type-admin {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .table-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .search-box input {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 250px;
+        }
+
+        .table-info {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .scroll-hint {
+            text-align: center;
+            padding: 10px;
+            color: #666;
+            font-style: italic;
+            font-size: 14px;
+            background-color: #f9f9f9;
+            border-top: 1px solid #eee;
+        }
+
+        /* NEW: Transfer Modal Styles */
+        .transfer-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .transfer-modal.active {
+            display: flex;
+        }
+
+        .transfer-content {
+            background-color: white;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .transfer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .transfer-header h2 {
+            color: #00A850;
+            margin: 0;
+        }
+
+        .transfer-steps {
+            display: flex;
+            margin-bottom: 20px;
+            justify-content: space-between;
+        }
+
+        .transfer-step {
+            text-align: center;
+            flex: 1;
+            position: relative;
+        }
+
+        .transfer-step:not(:last-child):after {
+            content: '';
+            position: absolute;
+            top: 15px;
+            right: -50%;
+            width: 100%;
+            height: 2px;
+            background-color: #ddd;
+            z-index: 1;
+        }
+
+        .step-number {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #ddd;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-weight: bold;
+            z-index: 2;
+            position: relative;
+        }
+
+        .transfer-step.active .step-number {
+            background-color: #00A850;
+        }
+
+        .transfer-step.completed .step-number {
+            background-color: #00A850;
+        }
+
+        .transfer-step.completed:after {
+            background-color: #00A850;
+        }
+
+        .step-label {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .transfer-step.active .step-label {
+            color: #00A850;
+            font-weight: 600;
+        }
+
+        .transfer-form-step {
+            display: none;
+        }
+
+        .transfer-form-step.active {
+            display: block;
+        }
+
+        .form-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .transfer-summary {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .transfer-summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .transfer-summary-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .transfer-summary-label {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .transfer-summary-value {
+            color: #666;
+        }
+
+        .code-input-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .code-input-group .input-group {
+            flex: 1;
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 480px) {
+            .code-input-group {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+
+        /* NEW: Image Upload Styles */
+        .image-upload-container {
+            margin-bottom: 20px;
+        }
+
+        .image-upload-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .image-preview {
+            width: 100px;
+            height: 100px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .image-preview img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .image-preview-placeholder {
+            color: #999;
+            font-size: 14px;
+        }
+
+        .upload-btn {
+            background-color: #00A850;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .upload-btn:hover {
+            background-color: #007C3E;
+        }
+
+        /* NEW: Transfer Management Styles */
+        .transfers-table-container {
+            overflow-x: auto;
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: white;
+        }
+
+        .transfers-table {
+            width: 100%;
+            min-width: 1000px;
+            border-collapse: collapse;
+        }
+
+        .transfers-table th {
+            background-color: #1a3c6e;
+            color: white;
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .transfers-table td {
+            padding: 10px 15px;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+        }
+
+        .transfers-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .transfers-table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .status-pending {
+            color: #856404;
+            background-color: #fff3cd;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .status-completed {
+            color: #155724;
+            background-color: #d4edda;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .status-declined {
+            color: #721c24;
+            background-color: #f8d7da;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .transfer-actions {
+            display: flex;
+            gap: 5px;
+        }
+
+        .transfer-action-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #1a3c6e;
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .transfer-action-btn:hover {
+            background-color: #f0f0f0;
+        }
+
+        .transfer-action-btn.approve {
+            color: #28a745;
+        }
+
+        .transfer-action-btn.decline {
+            color: #dc3545;
+        }
+
+        .transfer-action-btn.edit {
+            color: #ffc107;
+        }
+
+        /* NEW: Code Management Styles */
+        .code-management-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .code-item-management {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+
+        .code-item-management h4 {
+            margin-bottom: 10px;
+            color: #1a3c6e;
+        }
+
+        @media (max-width: 768px) {
+            .code-management-form {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* NEW: Feature Modals Styles */
+        .feature-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .feature-modal.active {
+            display: flex;
+        }
+
+        .feature-content {
+            background-color: white;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .feature-header h2 {
+            color: #00A850;
+            margin: 0;
+        }
+
+        .feature-form {
+            margin-bottom: 20px;
+        }
+
+        .feature-summary {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .feature-summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .feature-summary-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .feature-summary-label {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .feature-summary-value {
+            color: #666;
+        }
+
+        .feature-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        /* NEW: Codes Modal Styles */
+        .codes-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .codes-modal.active {
+            display: flex;
+        }
+
+        .codes-modal-backdrop {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .codes-modal-panel {
+            background-color: white;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+            padding: 20px;
+            position: relative;
+            z-index: 1001;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .codes-modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+            position: absolute;
+            top: 10px;
+            right: 15px;
+        }
+
+        .codes-modal-close:hover {
+            color: #333;
+        }
+
+        .code-step {
+            display: none;
+        }
+
+        .code-step.active {
+            display: block;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* NEW: Profile Image Display in Dashboard */
+        .profile-image-container {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .profile-image-display {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid #00A850;
+            margin: 0 auto 10px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f8f9fa;
+        }
+
+        .profile-image-display img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .profile-image-placeholder {
+            color: #999;
+            font-size: 14px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+
+        .profile-image-placeholder i {
+            font-size: 40px;
+            margin-bottom: 5px;
+            color: #00A850;
+        }
+
+        /* NEW: Edit User Modal Styles */
+        .edit-user-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .edit-user-modal.active {
+            display: flex;
+        }
+
+        .edit-user-content {
+            background-color: white;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .edit-user-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .edit-user-header h2 {
+            color: #1a3c6e;
+            margin: 0;
+        }
+
+        /* NEW: Sequential Code Input Styles */
+        .code-step-container {
+            display: none;
+        }
+
+        .code-step-container.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .code-input-feedback {
+            margin-top: 10px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .code-input-feedback.valid {
+            color: #00A850;
+            display: block;
+        }
+
+        .code-input-feedback.invalid {
+            color: #dc3545;
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* NEW: Notification Styles */
+        .notification-toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #00A850;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            max-width: 350px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+
+        .notification-toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .notification-toast.error {
+            background-color: #dc3545;
+        }
+
+        .notification-toast.warning {
+            background-color: #ffc107;
+            color: #333;
+        }
+
+        .notification-icon {
+            font-size: 20px;
+        }
+
+        .notification-content {
+            flex: 1;
+        }
+
+        .notification-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .notification-message {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .notification-close {
+            background: none;
+            border: none;
+            color: inherit;
+            cursor: pointer;
+            font-size: 16px;
+            opacity: 0.7;
+        }
+
+        .notification-close:hover {
+            opacity: 1;
+        }
+
+        /* NEW: Bank Selection and Account Details Styles */
+        .bank-selection-container {
+            display: none;
+        }
+
+        .bank-selection-container.active {
+            display: block;
+        }
+
+        .routing-account-fields {
+            display: none;
+        }
+
+        .routing-account-fields.active {
+            display: block;
+        }
+
+        .validation-feedback {
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .validation-feedback.valid {
+            color: #00A850;
+            display: block;
+        }
+
+        .validation-feedback.invalid {
+            color: #dc3545;
+            display: block;
+        }
+
+        /* NEW: Account Number Display */
+        .account-number-display {
+            font-family: monospace;
+            font-size: 16px;
+            color: #1a3c6e;
+            font-weight: 600;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        /* NEW: Dashboard Info Panel */
+        .dashboard-info-panel {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+        }
+
+        .info-panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .info-panel-header h2 {
+            font-size: 18px;
+            color: #333;
+            margin: 0;
+        }
+
+        .info-panel-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .info-label {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            font-size: 16px;
+            color: #333;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- Login Screen -->
+    <div class="screen active" id="login-screen">
+        <div class="login-header">
+            <div class="logo-container">
+                <div class="td-logo">TD</div>
+            </div>
+            <h1 id="greeting">Good evening</h1>
+        </div>
+
+        <div class="login-form">
+            <div class="success-message" id="login-success-message">
+                Account created successfully! You can now log in.
+            </div>
+
+            <div class="error-message" id="login-error-message">
+                <!-- Error message will be dynamically set -->
+            </div>
+
+            <div class="input-group">
+                <label for="username">Username or Access Card</label>
+                <input type="text" id="username" placeholder="Enter your username">
+                <!-- REMOVED: Eye icon button -->
+            </div>
+
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Enter your password">
+                <!-- REMOVED: Eye icon button -->
+            </div>
+
+            <div class="forgot-password">
+                <a href="#" id="forgot-password-link"><strong>Forgot password?</strong></a>
+            </div>
+
+            <div class="remember-me">
+                <input type="checkbox" id="remember" checked>
+                <label for="remember">Remember me</label>
+            </div>
+
+            <button class="btn" id="login-btn">Log In</button>
+
+            <div class="signup-section">
+                <p>New to TD or digital banking? <a id="show-register" class="bold">Get started</a></p>
+            </div>
+        </div>
+
+        <!-- Footer with Circular Icons -->
+        <div class="footer">
+            <a class="footer-icon" id="find-locations" href="find-locations.html">
+                <div class="icon-circle">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <span class="footer-text">Find Locations</span>
+            </a>
+
+            <a class="footer-icon" id="contact-us" href="contactus.html">
+                <div class="icon-circle">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <span class="footer-text">Contact Us</span>
+            </a>
+
+            <a class="footer-icon" id="explore-products" href="exploreproductpage.html">
+                <div class="icon-circle">
+                    <i class="fas fa-credit-card"></i>
+                </div>
+                <span class="footer-text">Explore Products</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Registration Screen -->
+    <div class="screen" id="register-screen">
+        <div class="register-header">
+            <div class="logo-container">
+                <div class="td-logo">TD</div>
+            </div>
+            <h1>Create Account</h1>
+        </div>
+
+        <div class="register-form">
+            <div class="error-message" id="register-error-message">
+                Please fill all fields correctly.
+            </div>
+
+            <!-- NEW: Profile Image Upload -->
+            <div class="image-upload-container">
+                <label class="image-upload-label">Profile Image</label>
+                <input type="file" id="profile-image" accept="image/*" style="display: none;">
+                <button type="button" class="upload-btn" id="upload-profile-btn">
+                    <i class="fas fa-upload"></i> Upload Profile Image
+                </button>
+                <div class="image-preview" id="image-preview">
+                    <div class="image-preview-placeholder">
+                        <i class="fas fa-user"></i>
+                        <span>No image selected</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="fullname">Full Name</label>
+                <input type="text" id="fullname" placeholder="Enter your full name">
+            </div>
+
+            <div class="input-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="Enter your email">
+            </div>
+
+            <div class="input-group">
+                <label for="phone">Mobile Number</label>
+                <input type="tel" id="phone" placeholder="Enter your mobile number">
+            </div>
+
+            <div class="input-group">
+                <label for="new-username">Choose Username</label>
+                <input type="text" id="new-username" placeholder="Choose a username">
+                <!-- REMOVED: Eye icon button -->
+            </div>
+
+            <div class="input-group">
+                <label for="account-type">Account Type</label>
+                <select id="account-type" required>
+                    <option value="">Select Account Type</option>
+                    <option value="savings">Savings Account</option>
+                    <option value="checking">Checking Account</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="new-password">Create Password</label>
+                <input type="password" id="new-password" placeholder="Create a password">
+                <!-- REMOVED: Eye icon button -->
+            </div>
+
+            <div class="input-group">
+                <label for="confirm-password">Confirm Password</label>
+                <input type="password" id="confirm-password" placeholder="Confirm your password">
+                <!-- REMOVED: Eye icon button -->
+            </div>
+
+            <button class="btn" id="register-btn">Create Account</button>
+
+            <div class="login-section">
+                <p>Already have an account? <a id="show-login">Log In</a></p>
+            </div>
+        </div>
+
+        <!-- Footer for Registration Screen -->
+        <div class="footer">
+            <a class="footer-icon" id="find-locations-register" href="find-locations.html">
+                <div class="icon-circle">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <span class="footer-text">Find Locations</span>
+            </a>
+
+            <a class="footer-icon" id="contact-us-register" href="contactus.html">
+                <div class="icon-circle">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <span class="footer-text">Contact Us</span>
+            </a>
+
+            <a class="footer-icon" id="explore-products-register" href="exploreproductpage.html">
+                <div class="icon-circle">
+                    <i class="fas fa-credit-card"></i>
+                </div>
+                <span class="footer-text">Explore Products</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- User Dashboard Screen -->
+    <div class="screen" id="dashboard-screen">
+        <div class="dashboard-header">
+            <button class="logout-btn" id="logout-btn">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+            <div class="logo-container">
+                <div class="td-logo">TD</div>
+            </div>
+            <h1>Welcome, <span id="user-name"></span></h1>
+        </div>
+
+        <div class="dashboard-content">
+            <!-- NEW: Profile Image Display -->
+            <div class="profile-image-container">
+                <div class="profile-image-display" id="user-profile-image">
+                    <div class="profile-image-placeholder">
+                        <i class="fas fa-user"></i>
+                        <span>No profile image</span>
+                    </div>
+                </div>
+                <button class="upload-btn" id="change-profile-btn">
+                    <i class="fas fa-camera"></i> Change Profile Image
+                </button>
+            </div>
+
+            <!-- Time and Date Display -->
+            <div class="time-date-display">
+                <div class="current-time" id="current-time">12:00 PM</div>
+                <div class="current-date" id="current-date">Monday, January 1, 2023</div>
+            </div>
+
+            <div class="email-notification" id="email-notification">
+                <p><strong>Account Confirmation Email Sent</strong></p>
+                <p>We've sent a confirmation email to: <span class="email-address" id="user-email"></span></p>
+                <p>Please check your inbox to verify your account.</p>
+            </div>
+
+            <div class="admin-message" id="admin-message">
+                Please contact the admin to activate this feature.
+            </div>
+
+            <!-- Dashboard Info Panel -->
+            <div class="dashboard-info-panel">
+                <div class="info-panel-header">
+                    <h2>Account Information</h2>
+                </div>
+                <div class="info-panel-content">
+                    <div class="info-item">
+                        <span class="info-label">Email</span>
+                        <span class="info-value" id="dashboard-email">user@example.com</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Mobile Number</span>
+                        <span class="info-value" id="dashboard-mobile">+1 (555) 123-4567</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">NRC Code</span>
+                        <span class="info-value" id="dashboard-nrc">NRC-123456</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">IMF Code</span>
+                        <span class="info-value" id="dashboard-imf">IMF-789012</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Account Number Display -->
+            <div class="accounts-section">
+                <div class="section-header">
+                    <h2>Account Numbers</h2>
+                </div>
+                <div class="account-number-display" id="user-account-number">
+                    Loading account number...
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <div class="action-btn" id="transfer-btn">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span>Transfer</span>
+                </div>
+                <div class="action-btn" id="pay-bills-btn">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                    <span>Pay Bills</span>
+                </div>
+                <div class="action-btn" id="etransfer-btn">
+                    <i class="fas fa-paper-plane"></i>
+                    <span>e-Transfer</span>
+                </div>
+                <div class="action-btn" id="invest-btn">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Invest</span>
+                </div>
+            </div>
+
+            <!-- Transfer Modal -->
+            <div class="modal" id="transfer-modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>Transfer Funds</h2>
+                        <button class="close-modal" id="close-transfer-modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Transfer Form -->
+                        <div id="transfer-form-container">
+                            <form id="transfer-form">
+                                <div class="input-group">
+                                    <label for="transfer-country">Select Country</label>
+                                    <select id="transfer-country" required>
+                                        <option value="">Select Country</option>
+                                        <option value="USA">United States</option>
+                                        <option value="Canada">Canada</option>
+                                        <option value="UK">United Kingdom</option>
+                                        <option value="Australia">Australia</option>
+                                        <option value="Germany">Germany</option>
+                                        <option value="France">France</option>
+                                        <option value="Japan">Japan</option>
+                                        <option value="China">China</option>
+                                        <option value="India">India</option>
+                                        <option value="Brazil">Brazil</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                                
+                                <!-- Bank Selection -->
+                                <div class="bank-selection-container" id="bank-selection-container">
+                                    <div class="input-group">
+                                        <label for="transfer-bank">Select Bank</label>
+                                        <select id="transfer-bank" required>
+                                            <option value="">Select Bank</option>
+                                            <!-- Banks will be populated based on country selection -->
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <!-- Routing and Account Number Fields -->
+                                <div class="routing-account-fields" id="routing-account-fields">
+                                    <div class="input-group">
+                                        <label for="routing-number">Routing Number</label>
+                                        <input type="text" id="routing-number" placeholder="Enter routing number" required>
+                                        <div class="validation-feedback" id="routing-feedback"></div>
+                                    </div>
+                                    <div class="input-group">
+                                        <label for="account-number">Account Number</label>
+                                        <input type="text" id="account-number" placeholder="Enter account number" required>
+                                        <div class="validation-feedback" id="account-feedback"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="input-group">
+                                    <label for="transfer-recipient">Recipient Name</label>
+                                    <input type="text" id="transfer-recipient" placeholder="Enter recipient's full name" required>
+                                </div>
+                                <div class="input-group">
+                                    <label for="transfer-reason">Reason for Transfer</label>
+                                    <textarea id="transfer-reason" placeholder="Enter reason for transfer" required></textarea>
+                                </div>
+                                <div class="input-group">
+                                    <label for="transfer-amount">Amount</label>
+                                    <input type="number" id="transfer-amount" placeholder="Enter amount" min="1" step="0.01" required>
+                                </div>
+                                <button type="button" class="btn" id="initiate-transfer-btn">Initiate Transfer</button>
+                            </form>
+                        </div>
+                        
+                        <!-- Security Code Verification -->
+                        <div id="security-codes-container" style="display: none;">
+                            <h3>Security Verification</h3>
+                            <p>Please enter your security codes:</p>
+                            
+                            <!-- NRC Code Step -->
+                            <div class="code-step-container active" id="NRC-code-step">
+                                <div class="input-group">
+                                    <label for="NRC-code-input">NRC Code</label>
+                                    <input type="text" id="NRC-code-input" placeholder="Enter NRC code" required>
+                                    <div class="code-input-feedback" id="NRC-feedback"></div>
+                                </div>
+                                <button class="btn" id="verify-NRC-btn">Verify NRC Code</button>
+                            </div>
+                            
+                            <!-- IMF Code Step -->
+                            <div class="code-step-container" id="imf-code-step">
+                                <div class="input-group">
+                                    <label for="imf-code-input">IMF Code</label>
+                                    <input type="text" id="imf-code-input" placeholder="Enter IMF code" required disabled>
+                                    <div class="code-input-feedback" id="imf-feedback"></div>
+                                </div>
+                                <button class="btn" id="verify-imf-btn">Complete Transfer</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Transfer Success -->
+                        <div id="transfer-success" style="display: none;">
+                            <div class="success-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <h3>Transfer Successful!</h3>
+                            <p><strong>Kindly wait for 48 hours for transfer to be successful.</strong></p>
+                            <div class="transfer-details" id="transfer-details">
+                                <!-- Transfer details will be displayed here -->
+                            </div>
+                            <button id="close-success" class="btn">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NEW: Pay Bills Modal -->
+            <div class="modal" id="pay-bills-modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>Pay Bills</h2>
+                        <button class="close-modal" id="close-pay-bills-modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="pay-bills-form">
+                            <div class="input-group">
+                                <label for="bill-type">Bill Type</label>
+                                <select id="bill-type" required>
+                                    <option value="">Select Bill Type</option>
+                                    <option value="electricity">Electricity</option>
+                                    <option value="water">Water</option>
+                                    <option value="internet">Internet</option>
+                                    <option value="phone">Phone</option>
+                                    <option value="credit-card">Credit Card</option>
+                                    <option value="mortgage">Mortgage</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label for="bill-account">Account Number</label>
+                                <input type="text" id="bill-account" placeholder="Enter account number" required>
+                            </div>
+                            <div class="input-group">
+                                <label for="bill-amount">Amount</label>
+                                <input type="number" id="bill-amount" placeholder="Enter amount" min="1" step="0.01" required>
+                            </div>
+                            <div class="input-group">
+                                <label for="bill-due-date">Due Date</label>
+                                <input type="date" id="bill-due-date" required>
+                            </div>
+                            <button type="button" class="btn" id="confirm-pay-bill-btn">Pay Bill</button>
+                        </form>
+                        <div id="pay-bills-success" style="display: none;">
+                            <div class="success-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <h3>Bill Payment Successful!</h3>
+                            <p>Your bill payment has been processed successfully.</p>
+                            <button id="close-pay-bills-success" class="btn">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NEW: eTransfer Modal -->
+            <div class="modal" id="etransfer-modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>Send e-Transfer</h2>
+                        <button class="close-modal" id="close-etransfer-modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="etransfer-form">
+                            <div class="input-group">
+                                <label for="etransfer-recipient">Recipient Email</label>
+                                <input type="email" id="etransfer-recipient" placeholder="Enter recipient's email" required>
+                            </div>
+                            <div class="input-group">
+                                <label for="etransfer-amount">Amount</label>
+                                <input type="number" id="etransfer-amount" placeholder="Enter amount" min="1" step="0.01" required>
+                            </div>
+                            <div class="input-group">
+                                <label for="etransfer-message">Message (Optional)</label>
+                                <textarea id="etransfer-message" placeholder="Add a message"></textarea>
+                            </div>
+                            <button type="button" class="btn" id="confirm-etransfer-btn">Send e-Transfer</button>
+                        </form>
+                        <div id="etransfer-success" style="display: none;">
+                            <div class="success-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <h3>e-Transfer Sent!</h3>
+                            <p>Your e-Transfer has been sent successfully.</p>
+                            <button id="close-etransfer-success" class="btn">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NEW: Invest Modal -->
+            <div class="modal" id="invest-modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>Invest</h2>
+                        <button class="close-modal" id="close-invest-modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="invest-form">
+                            <div class="input-group">
+                                <label for="investment-type">Investment Type</label>
+                                <select id="investment-type" required>
+                                    <option value="">Select Investment Type</option>
+                                    <option value="stocks">Stocks</option>
+                                    <option value="bonds">Bonds</option>
+                                    <option value="mutual-funds">Mutual Funds</option>
+                                    <option value="etfs">ETFs</option>
+                                    <option value="crypto">Cryptocurrency</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label for="investment-amount">Amount</label>
+                                <input type="number" id="investment-amount" placeholder="Enter amount" min="1" step="0.01" required>
+                            </div>
+                            <div class="input-group">
+                                <label for="investment-duration">Investment Duration (Months)</label>
+                                <input type="number" id="investment-duration" placeholder="Enter duration in months" min="1" required>
+                            </div>
+                            <button type="button" class="btn" id="confirm-invest-btn">Invest</button>
+                        </form>
+                        <div id="invest-success" style="display: none;">
+                            <div class="success-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <h3>Investment Successful!</h3>
+                            <p>Your investment has been processed successfully.</p>
+                            <button id="close-invest-success" class="btn">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- My Accounts Section -->
+            <div class="accounts-section">
+                <div class="section-header">
+                    <h2>My Accounts</h2>
+                    <a class="view-all" id="view-all-accounts">View All</a>
+                </div>
+
+                <!-- Total Balance with green background -->
+                <div class="account-summary">
+                    <p>Total Balance: <strong id="total-balance">$0.00</strong></p>
+                </div>
+
+                <div class="account-card">
+                    <div class="account-info">
+                        <h3>Primary Account <span id="primary-account-type" class="account-type-badge"></span></h3>
+                        <p>•• 7942</p>
+                    </div>
+                    <div class="account-balance">$0.00</div>
+                </div>
+
+                <div class="account-card">
+                    <div class="account-info">
+                        <h3>High Interest Savings</h3>
+                        <p>•• 5361</p>
+                    </div>
+                    <div class="account-balance">$0.00</div>
+                </div>
+
+                <div class="account-card">
+                    <div class="account-info">
+                        <h3>USD Account</h3>
+                        <p>•• 2287</p>
+                    </div>
+                    <div class="account-balance">$0.00</div>
+                </div>
+            </div>
+
+            <!-- Transaction History -->
+            <div class="accounts-section">
+                <div class="section-header">
+                    <h2>Recent Transactions</h2>
+                    <a class="view-all" id="view-all-transactions">View All</a>
+                </div>
+
+                <div class="transaction-history" id="transaction-history">
+                    <!-- Transactions will be displayed here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer for Dashboard Screen -->
+        <div class="footer">
+            <a class="footer-icon" id="find-locations-dashboard" href="find-locations.html">
+                <div class="icon-circle">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <span class="footer-text">Find Locations</span>
+            </a>
+
+            <a class="footer-icon" id="contact-us-dashboard" href="contactus.html">
+                <div class="icon-circle">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <span class="footer-text">Contact Us</span>
+            </a>
+
+            <a class="footer-icon" id="explore-products-dashboard" href="exploreproductpage.html">
+                <div class="icon-circle">
+                    <i class="fas fa-credit-card"></i>
+                </div>
+                <span class="footer-text">Explore Products</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard Screen -->
+    <div class="screen" id="admin-dashboard-screen">
+        <div class="admin-dashboard-header">
+            <button class="logout-btn" id="admin-logout-btn">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+            <div class="logo-container">
+                <div class="td-logo">TD</div>
+            </div>
+            <h1>Admin Dashboard</h1>
+        </div>
+
+        <div class="admin-dashboard-content">
+            <div class="admin-controls">
+                <button class="admin-btn" id="create-user-btn">Create User</button>
+                <button class="admin-btn" id="manage-users-btn">Manage Users</button>
+                <button class="admin-btn" id="view-all-users-btn">View All Users</button>
+                <button class="admin-btn" id="assign-codes-btn">Assign Codes</button>
+                <button class="admin-btn" id="add-deposit-btn">Add Deposit</button>
+                <button class="admin-btn" id="time-control-btn">Time Control</button>
+                <button class="admin-btn" id="edit-history-btn">Edit History</button>
+                <button class="admin-btn" id="user-time-btn">User Time & Date</button>
+                <button class="admin-btn" id="user-data-btn">User Data & Export</button>
+            </div>
+
+            <!-- Create User Form -->
+            <div class="admin-form" id="create-user-form">
+                <h2>Create New User</h2>
+
+                <!-- NEW: Profile Image Upload for Admin -->
+                <div class="image-upload-container">
+                    <label class="image-upload-label">Profile Image</label>
+                    <input type="file" id="admin-profile-image" accept="image/*" style="display: none;">
+                    <button type="button" class="upload-btn" id="admin-upload-profile-btn">
+                        <i class="fas fa-upload"></i> Upload Profile Image
+                    </button>
+                    <div class="image-preview" id="admin-image-preview">
+                        <div class="image-preview-placeholder">
+                            <i class="fas fa-user"></i>
+                            <span>No image selected</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="admin-fullname">Full Name</label>
+                    <input type="text" id="admin-fullname" placeholder="Enter full name">
+                </div>
+                <div class="input-group">
+                    <label for="admin-email">Email Address</label>
+                    <input type="email" id="admin-email" placeholder="Enter email">
+                </div>
+                <div class="input-group">
+                    <label for="admin-phone">Phone Number</label>
+                    <input type="tel" id="admin-phone" placeholder="Enter phone number">
+                </div>
+                <div class="input-group">
+                    <label for="admin-username">Username</label>
+                    <input type="text" id="admin-username" placeholder="Enter username">
+                    <!-- REMOVED: Eye icon button -->
+                </div>
+                <div class="input-group">
+                    <label for="admin-account-type">Account Type</label>
+                    <select id="admin-account-type" required>
+                        <option value="">Select Account Type</option>
+                        <option value="savings">Savings Account</option>
+                        <option value="checking">Checking Account</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="admin-password">Password</label>
+                    <input type="password" id="admin-password" placeholder="Enter password">
+                    <!-- REMOVED: Eye icon button -->
+                </div>
+                <!-- Account Number Field -->
+                <div class="input-group">
+                    <label for="admin-account-number">Account Number</label>
+                    <input type="text" id="admin-account-number" placeholder="Enter account number">
+                </div>
+                <button class="btn btn-admin" id="admin-create-user-btn">Create User</button>
+            </div>
+
+            <!-- Manage Users Section -->
+            <div class="admin-form" id="manage-users-form">
+                <h2>Manage Users</h2>
+                <div class="user-list" id="user-list">
+                    <!-- User list will be populated here -->
+                </div>
+            </div>
+
+            <!-- View All Users Section -->
+            <div class="admin-form" id="view-all-users-form">
+                <h2>All User Details</h2>
+                <div class="table-controls">
+                    <div class="search-box">
+                        <input type="text" id="user-search" placeholder="Search users...">
+                        <button class="btn btn-admin" id="search-btn">
+                            <i class="fas fa-search"></i> Search
+                        </button>
+                    </div>
+                    <div class="table-info" id="table-info">
+                        Showing <span id="user-count">0</span> users
+                    </div>
+                </div>
+
+                <div class="user-management-table-container">
+                    <table class="user-management-table" id="user-management-table">
+                        <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th>Full Name</th>
+                                <th>Email</th>
+                                <th>Account Type</th>
+                                <th>Phone Number</th>
+                                <th>Balance</th>
+                                <th>Date Created</th>
+                                <th>Last Login</th>
+                                <th>Password</th>
+                                <th>Status</th>
+                                <th>IP Address</th>
+                                <th>NRC Code</th>
+                                <th>IMF Code</th>
+                                <!-- Account Number Column -->
+                                <th>Account Number</th>
+                                <!-- Actions Column -->
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="user-management-table-body">
+                            <!-- User data will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="scroll-hint">
+                    <i class="fas fa-arrows-alt-h"></i> Scroll horizontally to view all user details
+                </div>
+            </div>
+
+            <!-- Assign Codes Form -->
+            <div class="admin-form" id="assign-codes-form">
+                <h2>Assign Codes to User</h2>
+                <div class="input-group">
+                    <label for="select-user">Select User</label>
+                    <select id="select-user">
+                        <option value="">Select a user</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="NRC-code">NRC Code</label>
+                    <input type="text" id="NRC-code" placeholder="Enter NRC code">
+                </div>
+                <div class="input-group">
+                    <label for="imf-code">IMF Code</label>
+                    <input type="text" id="imf-code" placeholder="Enter IMF code">
+                </div>
+                <button class="btn btn-admin" id="assign-codes-btn-submit">Assign Codes</button>
+            </div>
+
+            <!-- Add Deposit Form -->
+            <div class="admin-form" id="add-deposit-form">
+                <h2>Add Deposit to User Account</h2>
+                <div class="input-group">
+                    <label for="deposit-user">Select User</label>
+                    <select id="deposit-user">
+                        <option value="">Select a user</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="deposit-amount">Amount ($)</label>
+                    <input type="number" id="deposit-amount" placeholder="Enter amount" min="0" step="0.01">
+                </div>
+                <div class="input-group">
+                    <label for="deposit-description">Description</label>
+                    <input type="text" id="deposit-description" placeholder="Enter description">
+                </div>
+
+                <!-- Date and Time Selection -->
+                <div class="datetime-group">
+                    <div class="input-group">
+                        <label for="deposit-date">Date</label>
+                        <input type="date" id="deposit-date">
+                    </div>
+                    <div class="input-group">
+                        <label for="deposit-time">Time</label>
+                        <input type="time" id="deposit-time">
+                    </div>
+                </div>
+
+                <div class="checkbox-group">
+                    <label for="use-current-time">
+                        <input type="checkbox" id="use-current-time" checked> Use current date and time
+                    </label>
+                </div>
+
+                <button class="btn btn-admin" id="add-deposit-btn-submit">Add Deposit</button>
+            </div>
+
+            <!-- Other admin forms -->
+            <div class="success-message" id="admin-success-message"></div>
+            <div class="error-message" id="admin-error-message"></div>
+        </div>
+
+        <!-- Footer for Admin Dashboard -->
+        <div class="footer">
+            <a class="footer-icon" id="find-locations-admin" href="find-locations.html">
+                <div class="icon-circle">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <span class="footer-text">Find Locations</span>
+            </a>
+
+            <a class="footer-icon" id="contact-us-admin" href="contactus.html">
+                <div class="icon-circle">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <span class="footer-text">Contact Us</span>
+            </a>
+
+            <a class="footer-icon" id="explore-products-admin" href="exploreproductpage.html">
+                <div class="icon-circle">
+                    <i class="fas fa-credit-card"></i>
+                </div>
+                <span class="footer-text">Explore Products</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Notification Toast Container -->
+<div id="notification-container"></div>
+
+<script>
+    // ==================== APPLICATION DATA AND STATE ====================
+
+    // User database with sample data
+    let userDatabase = [
+        {
+            fullname: "Admin User",
+            username: "admin",
+            password: "admin123",
+            email: "admin@tdbank.com",
+            phone: "+1-555-0100",
+            accountType: "admin",
+            isAdmin: true,
+            isActive: true,
+            balance: 0,
+            codes: {
+                NRC: "TDOMCATTTOR",
+                imf: "IMF789012"
+            },
+            accountNumber: "ADMIN001",
+            profileImage: null,
+            transactions: [
+                {
+                    id: 1,
+                    date: "2023-10-01",
+                    description: "Initial deposit",
+                    amount: 1000,
+                    type: "credit"
+                }
+            ],
+            registrationDate: "2023-01-01T00:00:00Z",
+            lastLogin: new Date().toISOString(),
+            ipAddress: "192.168.1.1"
+        },
+        {
+            fullname: "John Smith",
+            username: "johnsmith",
+            password: "password123",
+            email: "john.smith@example.com",
+            phone: "+1-555-0101",
+            accountType: "savings",
+            isAdmin: false,
+            isActive: true,
+            balance: 2500.75,
+            codes: {
+                NRC: "TDOMCATTTOR",
+                imf: "IMF890123"
+            },
+            accountNumber: "TD123456789",
+            profileImage: null,
+            transactions: [
+                {
+                    id: 1,
+                    date: "2023-09-15",
+                    description: "Initial deposit",
+                    amount: 2000,
+                    type: "credit"
+                },
+                {
+                    id: 2,
+                    date: "2023-09-20",
+                    description: "Grocery store",
+                    amount: -85.25,
+                    type: "debit"
+                }
+            ],
+            registrationDate: "2023-09-15T10:30:00Z",
+            lastLogin: "2023-10-10T14:22:00Z",
+            ipAddress: "192.168.1.101"
+        },
+        {
+            fullname: "Sarah Johnson",
+            username: "sarahj",
+            password: "password123",
+            email: "sarah.johnson@example.com",
+            phone: "+1-555-0102",
+            accountType: "checking",
+            isAdmin: false,
+            isActive: true,
+            balance: 1800.50,
+            codes: {
+                NRC: "TDOMCATTTOR",
+                imf: "IMF901234"
+            },
+            accountNumber: "TD987654321",
+            profileImage: null,
+            transactions: [
+                {
+                    id: 1,
+                    date: "2023-09-10",
+                    description: "Initial deposit",
+                    amount: 1500,
+                    type: "credit"
+                },
+                {
+                    id: 2,
+                    date: "2023-09-18",
+                    description: "Online shopping",
+                    amount: -120.75,
+                    type: "debit"
+                }
+            ],
+            registrationDate: "2023-09-10T09:15:00Z",
+            lastLogin: "2023-10-09T11:45:00Z",
+            ipAddress: "192.168.1.102"
+        },
+        {
+            fullname: "Michael Brown",
+            username: "michaelb",
+            password: "password123",
+            email: "michael.brown@example.com",
+            phone: "+1-555-0103",
+            accountType: "savings",
+            isAdmin: false,
+            isActive: false,
+            balance: 3200.25,
+            codes: {
+                NRC: "",
+                imf: ""
+            },
+            accountNumber: "TD456789123",
+            profileImage: null,
+            transactions: [
+                {
+                    id: 1,
+                    date: "2023-08-20",
+                    description: "Initial deposit",
+                    amount: 3000,
+                    type: "credit"
+                },
+                {
+                    id: 2,
+                    date: "2023-09-05",
+                    description: "Utility bill",
+                    amount: -150.50,
+                    type: "debit"
+                }
+            ],
+            registrationDate: "2023-08-20T14:20:00Z",
+            lastLogin: "2023-10-05T16:30:00Z",
+            ipAddress: "192.168.1.103"
+        }
+    ];
+
+    // Bank database by country
+    const bankDatabase = {
+        "USA": [
+            "Bank of America",
+            "Wells Fargo",
+            "JPMorgan Chase",
+            "Citibank",
+            "U.S. Bank",
+            "PNC Bank",
+            "TD Bank",
+            "Capital One",
+            "HSBC Bank USA",
+            "American Express"
+        ],
+        "Canada": [
+            "Royal Bank of Canada",
+            "Toronto-Dominion Bank",
+            "Bank of Nova Scotia",
+            "Bank of Montreal",
+            "Canadian Imperial Bank of Commerce",
+            "National Bank of Canada",
+            "HSBC Bank Canada",
+            "Laurentian Bank of Canada",
+            "Canadian Western Bank",
+            "Alterna Bank"
+        ],
+        "UK": [
+            "HSBC UK",
+            "Barclays",
+            "Lloyds Bank",
+            "NatWest",
+            "Royal Bank of Scotland",
+            "Standard Chartered",
+            "Santander UK",
+            "Nationwide Building Society",
+            "TSB Bank",
+            "Metro Bank"
+        ],
+        "Australia": [
+            "Commonwealth Bank",
+            "Westpac",
+            "National Australia Bank",
+            "ANZ Bank",
+            "Macquarie Bank",
+            "Bendigo Bank",
+            "Suncorp Bank",
+            "Bank of Queensland",
+            "ING Australia",
+            "Bankwest"
+        ],
+        "Germany": [
+            "Deutsche Bank",
+            "Commerzbank",
+            "DZ Bank",
+            "KfW Bank",
+            "Landesbank Baden-Württemberg",
+            "Bayerische Landesbank",
+            "HypoVereinsbank",
+            "Postbank",
+            "Sparkasse",
+            "Volksbanken"
+        ],
+        "France": [
+            "BNP Paribas",
+            "Crédit Agricole",
+            "Société Générale",
+            "Groupe BPCE",
+            "Crédit Mutuel",
+            "La Banque Postale",
+            "HSBC France",
+            "Crédit du Nord",
+            "Banque Populaire",
+            "Caisse d'Épargne"
+        ],
+        "Japan": [
+            "Mitsubishi UFJ Financial Group",
+            "Sumitomo Mitsui Financial Group",
+            "Mizuho Financial Group",
+            "Resona Holdings",
+            "Sumitomo Mitsui Trust Holdings",
+            "Norinchukin Bank",
+            "Shizuoka Bank",
+            "Fukuoka Financial Group",
+            "Concordia Financial Group",
+            "Bank of Yokohama"
+        ],
+        "China": [
+            "Industrial and Commercial Bank of China",
+            "China Construction Bank",
+            "Agricultural Bank of China",
+            "Bank of China",
+            "Bank of Communications",
+            "China Merchants Bank",
+            "Industrial Bank",
+            "Shanghai Pudong Development Bank",
+            "China CITIC Bank",
+            "China Minsheng Bank"
+        ],
+        "India": [
+            "State Bank of India",
+            "HDFC Bank",
+            "ICICI Bank",
+            "Punjab National Bank",
+            "Bank of Baroda",
+            "Canara Bank",
+            "Union Bank of India",
+            "Bank of India",
+            "IndusInd Bank",
+            "Kotak Mahindra Bank"
+        ],
+        "Brazil": [
+            "Itaú Unibanco",
+            "Banco do Brasil",
+            "Caixa Econômica Federal",
+            "Bradesco",
+            "Banco Santander Brasil",
+            "BTG Pactual",
+            "Banco Safra",
+            "Banco Inter",
+            "Banco Original",
+            "Banco Votorantim"
+        ],
+        "Other": [
+            "Other Bank"
+        ]
+    };
+
+    // Current user
+    let currentUser = null;
+    let currentTransferData = null;
+
+    // ==================== UTILITY FUNCTIONS ====================
+
+    // Show notification
+    function showNotification(title, message, type = 'info', duration = 5000) {
+        const notificationContainer = document.getElementById('notification-container');
+        
+        const notification = document.createElement('div');
+        notification.className = `notification-toast ${type}`;
+        
+        const icon = type === 'error' ? 'exclamation-circle' : 
+                     type === 'warning' ? 'exclamation-triangle' : 
+                     type === 'success' ? 'check-circle' : 'info-circle';
+        
+        notification.innerHTML = `
+            <div class="notification-icon">
+                <i class="fas fa-${icon}"></i>
+            </div>
+            <div class="notification-content">
+                <div class="notification-title">${title}</div>
+                <div class="notification-message">${message}</div>
+            </div>
+            <button class="notification-close">
+                <i class="fas fa-times"></i>
+            </button>
+        `;
+        
+        notificationContainer.appendChild(notification);
+        
+        // Show notification with animation
+        setTimeout(() => {
+            notification.classList.add('show');
+        }, 100);
+        
+        // Close button functionality
+        const closeBtn = notification.querySelector('.notification-close');
+        closeBtn.addEventListener('click', () => {
+            hideNotification(notification);
+        });
+        
+        // Auto-hide after duration
+        if (duration > 0) {
+            setTimeout(() => {
+                hideNotification(notification);
+            }, duration);
+        }
+        
+        return notification;
+    }
+
+    function hideNotification(notification) {
+        notification.classList.remove('show');
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+            }
+        }, 300);
+    }
+
+    // Set time-based greeting
+    function setGreetingBasedOnTime() {
+        const hour = new Date().getHours();
+        let greeting;
+
+        if (hour >= 5 && hour < 12) {
+            greeting = "Good morning";
+        } else if (hour >= 12 && hour < 17) {
+            greeting = "Good afternoon";
+        } else if (hour >= 17 && hour < 22) {
+            greeting = "Good evening";
+        } else {
+            greeting = "Hello";
+        }
+
+        document.getElementById('greeting').textContent = greeting;
+    }
+
+    // Update time and date display
+    function updateTimeDisplay() {
+        const now = new Date();
+        
+        // Format time
+        let hours = now.getHours();
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        const formattedTime = hours + ':' + minutes + ' ' + ampm;
+
+        // Format date
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        const formattedDate = now.toLocaleDateString('en-US', options);
+
+        // Update display
+        document.getElementById('current-time').textContent = formattedTime;
+        document.getElementById('current-date').textContent = formattedDate;
+    }
+
+    // Show message helper
+    function showMessage(element, message) {
+        element.textContent = message;
+        element.style.display = 'block';
+        setTimeout(() => {
+            element.style.display = 'none';
+        }, 5000);
+    }
+
+    // Hide all messages
+    function hideAllMessages() {
+        document.getElementById('login-success-message').style.display = 'none';
+        document.getElementById('login-error-message').style.display = 'none';
+        document.getElementById('register-error-message').style.display = 'none';
+        document.getElementById('admin-message').style.display = 'none';
+        document.getElementById('email-notification').style.display = 'none';
+        document.getElementById('admin-success-message').style.display = 'none';
+        document.getElementById('admin-error-message').style.display = 'none';
+    }
+
+    // ==================== PROFILE IMAGE FUNCTIONALITY ====================
+
+    // Handle profile image upload
+    function setupProfileImageUpload() {
+        // User registration profile image
+        const profileImageInput = document.getElementById('profile-image');
+        const uploadProfileBtn = document.getElementById('upload-profile-btn');
+        const imagePreview = document.getElementById('image-preview');
+        
+        uploadProfileBtn.addEventListener('click', () => {
+            profileImageInput.click();
+        });
+        
+        profileImageInput.addEventListener('change', function() {
+            if (this.files && this.files[0]) {
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    imagePreview.innerHTML = `<img src="${e.target.result}" alt="Profile Preview">`;
+                }
+                
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+
+        // Admin create user profile image
+        const adminProfileImageInput = document.getElementById('admin-profile-image');
+        const adminUploadProfileBtn = document.getElementById('admin-upload-profile-btn');
+        const adminImagePreview = document.getElementById('admin-image-preview');
+        
+        adminUploadProfileBtn.addEventListener('click', () => {
+            adminProfileImageInput.click();
+        });
+        
+        adminProfileImageInput.addEventListener('change', function() {
+            if (this.files && this.files[0]) {
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    adminImagePreview.innerHTML = `<img src="${e.target.result}" alt="Profile Preview">`;
+                }
+                
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+
+        // Change profile image in dashboard
+        const changeProfileBtn = document.getElementById('change-profile-btn');
+        const userProfileImage = document.getElementById('user-profile-image');
+        
+        changeProfileBtn.addEventListener('click', () => {
+            const fileInput = document.createElement('input');
+            fileInput.type = 'file';
+            fileInput.accept = 'image/*';
+            
+            fileInput.addEventListener('change', function() {
+                if (this.files && this.files[0]) {
+                    const reader = new FileReader();
+                    
+                    reader.onload = function(e) {
+                        userProfileImage.innerHTML = `<img src="${e.target.result}" alt="Profile Image">`;
+                        
+                        // Update user profile image in database
+                        if (currentUser) {
+                            currentUser.profileImage = e.target.result;
+                            showNotification("Profile Updated", "Your profile image has been updated successfully.", "success");
+                        }
+                    }
+                    
+                    reader.readAsDataURL(this.files[0]);
+                }
+            });
+            
+            fileInput.click();
+        });
+    }
+
+    // Display user profile image
+    function displayUserProfileImage(user) {
+        const userProfileImage = document.getElementById('user-profile-image');
+        
+        if (user.profileImage) {
+            userProfileImage.innerHTML = `<img src="${user.profileImage}" alt="Profile Image">`;
+        } else {
+            userProfileImage.innerHTML = `
+                <div class="profile-image-placeholder">
+                    <i class="fas fa-user"></i>
+                    <span>No profile image</span>
+                </div>
+            `;
+        }
+    }
+
+    // ==================== LOGIN/REGISTRATION FUNCTIONALITY ====================
+
+    // Show registration screen
+    document.getElementById('show-register').addEventListener('click', () => {
+        document.getElementById('login-screen').classList.remove('active');
+        document.getElementById('register-screen').classList.add('active');
+        document.getElementById('dashboard-screen').classList.remove('active');
+        document.getElementById('admin-dashboard-screen').classList.remove('active');
+        hideAllMessages();
+    });
+
+    // Show login screen
+    document.getElementById('show-login').addEventListener('click', () => {
+        document.getElementById('register-screen').classList.remove('active');
+        document.getElementById('login-screen').classList.add('active');
+        document.getElementById('dashboard-screen').classList.remove('active');
+        document.getElementById('admin-dashboard-screen').classList.remove('active');
+        hideAllMessages();
+    });
+
+    // Login functionality
+    document.getElementById('login-btn').addEventListener('click', () => {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        // Find user in database
+        const user = userDatabase.find(user => user.username === username);
+
+        if (user) {
+            // Check if password matches
+            if (user.password === password) {
+                // Check if user is active OR if it's an admin
+                if (!user.isActive && !user.isAdmin) {
+                    showMessage(document.getElementById('login-error-message'), 'Contact admin for account activation and try again');
+                    return;
+                }
+
+                // Update user tracking data
+                user.lastLogin = new Date().toISOString();
+
+                // Successful login
+                hideAllMessages();
+                currentUser = user;
+
+                if (user.isAdmin) {
+                    // Redirect to admin dashboard
+                    document.getElementById('login-screen').classList.remove('active');
+                    document.getElementById('admin-dashboard-screen').classList.add('active');
+                    populateUserSelects();
+                    showAdminForm(document.getElementById('manage-users-form'));
+                } else {
+                    // Redirect to user dashboard
+                    document.getElementById('user-name').textContent = user.fullname;
+                    document.getElementById('user-email').textContent = user.email;
+
+                    // Display account type
+                    if (user.accountType === 'savings') {
+                        document.getElementById('primary-account-type').textContent = 'Savings';
+                        document.getElementById('primary-account-type').className = 'account-type-badge account-type-savings';
+                    } else if (user.accountType === 'checking') {
+                        document.getElementById('primary-account-type').textContent = 'Checking';
+                        document.getElementById('primary-account-type').className = 'account-type-badge account-type-checking';
+                    }
+
+                    document.getElementById('login-screen').classList.remove('active');
+                    document.getElementById('dashboard-screen').classList.add('active');
+
+                    // Update account balances
+                    updateUserDashboard(user);
+
+                    // Update dashboard info panel
+                    updateDashboardInfoPanel(user);
+
+                    // Display profile image
+                    displayUserProfileImage(user);
+
+                    // Check if user can transfer
+                    checkTransferEligibility(user);
+                }
+            } else {
+                // Password doesn't match
+                showMessage(document.getElementById('login-error-message'), 'Invalid username or password. Please try again. If you are already registered, contact the Admin to activate your account.');
+            }
+        } else {
+            // User not found
+            showMessage(document.getElementById('login-error-message'), 'Invalid username and password. Please try again');
+        }
+    });
+
+    // Register new account
+    document.getElementById('register-btn').addEventListener('click', () => {
+        const fullname = document.getElementById('fullname').value;
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
+        const username = document.getElementById('new-username').value;
+        const accountType = document.getElementById('account-type').value;
+        const password = document.getElementById('new-password').value;
+        const confirmPassword = document.getElementById('confirm-password').value;
+        const profileImageInput = document.getElementById('profile-image');
+
+        // Simple validation
+        if (!fullname || !email || !phone || !username || !accountType || !password || !confirmPassword) {
+            showMessage(document.getElementById('register-error-message'), 'Please fill all fields.');
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            showMessage(document.getElementById('register-error-message'), 'Passwords do not match.');
+            return;
+        }
+
+        if (password.length < 6) {
+            showMessage(document.getElementById('register-error-message'), 'Password must be at least 6 characters.');
+            return;
+        }
+
+        // Check if username already exists
+        if (userDatabase.find(user => user.username === username)) {
+            showMessage(document.getElementById('register-error-message'), 'Username already exists. Please choose another.');
+            return;
+        }
+
+        // Get profile image if uploaded
+        let profileImage = null;
+        if (profileImageInput.files && profileImageInput.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                profileImage = e.target.result;
+            };
+            reader.readAsDataURL(profileImageInput.files[0]);
+        }
+
+        // Create new user object
+        const newUser = {
+            fullname,
+            email,
+            phone,
+            username,
+            accountType,
+            password,
+            profileImage,
+            isAdmin: false,
+            isActive: false, // New users are inactive by default
+            balance: 0,
+            codes: {
+                NRC: "",
+                imf: ""
+            },
+            accountNumber: "TD" + Math.floor(100000000 + Math.random() * 900000000), // Generate random account number
+            transactions: [],
+            registrationDate: new Date().toISOString(),
+            lastLogin: null,
+            ipAddress: "192.168.1." + Math.floor(Math.random() * 255)
+        };
+
+        // Add user to database
+        userDatabase.push(newUser);
+
+        // Show email notification
+        document.getElementById('user-email').textContent = email;
+        document.getElementById('email-notification').style.display = 'block';
+
+        // Clear form
+        document.getElementById('fullname').value = '';
+        document.getElementById('email').value = '';
+        document.getElementById('phone').value = '';
+        document.getElementById('new-username').value = '';
+        document.getElementById('account-type').value = '';
+        document.getElementById('new-password').value = '';
+        document.getElementById('confirm-password').value = '';
+        document.getElementById('image-preview').innerHTML = `
+            <div class="image-preview-placeholder">
+                <i class="fas fa-user"></i>
+                <span>No image selected</span>
+            </div>
+        `;
+
+        // Show success message and redirect to login
+        hideAllMessages();
+        document.getElementById('register-screen').classList.remove('active');
+        document.getElementById('login-screen').classList.add('active');
+        showMessage(document.getElementById('login-success-message'), 'Account created successfully! Please wait for admin activation.');
+    });
+
+    // ==================== USER DASHBOARD FUNCTIONALITY ====================
+
+    // Update dashboard info panel
+    function updateDashboardInfoPanel(user) {
+        document.getElementById('dashboard-email').textContent = user.email;
+        document.getElementById('dashboard-mobile').textContent = user.phone;
+        document.getElementById('dashboard-nrc').textContent = user.codes.NRC || 'Not assigned';
+        document.getElementById('dashboard-imf').textContent = user.codes.imf || 'Not assigned';
+        document.getElementById('user-account-number').textContent = user.accountNumber || 'Not assigned';
+    }
+
+    // Update user dashboard with current data
+    function updateUserDashboard(user) {
+        // Update account balances
+        document.querySelectorAll('.account-balance').forEach((balance, index) => {
+            if (index === 0) {
+                balance.textContent = `$${user.balance.toFixed(2)}`;
+            } else {
+                balance.textContent = '$0.00';
+            }
+        });
+
+        // Update total balance
+        document.getElementById('total-balance').textContent = `$${user.balance.toFixed(2)}`;
+
+        // Update transaction history
+        updateTransactionHistory(user);
+    }
+
+    // Update transaction history display
+    function updateTransactionHistory(user) {
+        const transactionHistory = document.getElementById('transaction-history');
+        transactionHistory.innerHTML = '';
+
+        if (user.transactions.length === 0) {
+            transactionHistory.innerHTML = '<p style="text-align: center; color: #666; padding: 20px;">No transactions found</p>';
+            return;
+        }
+
+        // Sort transactions by date (newest first)
+        const sortedTransactions = [...user.transactions].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        // Display up to 5 recent transactions
+        const recentTransactions = sortedTransactions.slice(0, 5);
+
+        recentTransactions.forEach(transaction => {
+            const transactionItem = document.createElement('div');
+            transactionItem.className = 'transaction-item';
+
+            const amountClass = transaction.type === 'credit' ? 'transaction-credit' : 'transaction-debit';
+            const amountSign = transaction.type === 'credit' ? '+' : '';
+
+            transactionItem.innerHTML = `
+                <div class="transaction-info">
+                    <h4>${transaction.description}</h4>
+                    <p>${transaction.date}</p>
+                </div>
+                <div class="transaction-amount ${amountClass}">
+                    ${amountSign}$${Math.abs(transaction.amount).toFixed(2)}
+                </div>
+            `;
+
+            transactionHistory.appendChild(transactionItem);
+        });
+    }
+
+    // Check if user can transfer (active and has all codes)
+    function checkTransferEligibility(user) {
+        const transferBtn = document.getElementById('transfer-btn');
+        const hasAllCodes = user.codes.NRC && user.codes.imf;
+
+        // Transfer button stays active even without codes
+        // Only check if user is active
+        if (user.isActive) {
+            transferBtn.classList.remove('transfer-disabled');
+            transferBtn.style.cursor = 'pointer';
+            transferBtn.style.pointerEvents = 'auto';
+        } else {
+            transferBtn.classList.add('transfer-disabled');
+            transferBtn.style.cursor = 'not-allowed';
+            transferBtn.style.pointerEvents = 'none';
+        }
+    }
+
+    // Logout functionality
+    document.getElementById('logout-btn').addEventListener('click', () => {
+        document.getElementById('dashboard-screen').classList.remove('active');
+        document.getElementById('login-screen').classList.add('active');
+        document.getElementById('username').value = '';
+        document.getElementById('password').value = '';
+        hideAllMessages();
+        currentUser = null;
+    });
+
+    // Admin logout functionality
+    document.getElementById('admin-logout-btn').addEventListener('click', () => {
+        document.getElementById('admin-dashboard-screen').classList.remove('active');
+        document.getElementById('login-screen').classList.add('active');
+        document.getElementById('username').value = '';
+        document.getElementById('password').value = '';
+        hideAllMessages();
+        currentUser = null;
+    });
+
+    // ==================== TRANSFER FUNCTIONALITY ====================
+
+    // Transfer button functionality
+    document.getElementById('transfer-btn').addEventListener('click', () => {
+        // Check if user is activated
+        if (!currentUser.isActive) {
+            showMessage(document.getElementById('admin-message'), 'Please contact the admin to activate your account for transfers.');
+            return;
+        }
+        
+        // Show transfer modal
+        document.getElementById('transfer-modal').style.display = 'block';
+        resetTransferModal();
+    });
+
+    // Close transfer modal
+    document.getElementById('close-transfer-modal').addEventListener('click', () => {
+        document.getElementById('transfer-modal').style.display = 'none';
+        resetTransferModal();
+    });
+
+    // Close success modal
+    document.getElementById('close-success').addEventListener('click', () => {
+        document.getElementById('transfer-modal').style.display = 'none';
+        resetTransferModal();
+    });
+
+    // Country selection handler
+    document.getElementById('transfer-country').addEventListener('change', function() {
+        const country = this.value;
+        
+        if (country) {
+            // Show bank selection
+            document.getElementById('bank-selection-container').classList.add('active');
+            
+            // Populate banks for selected country
+            populateBanksForCountry(country);
+            
+            // Show routing and account number fields
+            document.getElementById('routing-account-fields').classList.add('active');
+        } else {
+            // Hide bank selection and routing/account fields
+            document.getElementById('bank-selection-container').classList.remove('active');
+            document.getElementById('routing-account-fields').classList.remove('active');
+        }
+    });
+
+    // Populate banks for selected country
+    function populateBanksForCountry(country) {
+        const transferBank = document.getElementById('transfer-bank');
+        transferBank.innerHTML = '<option value="">Select Bank</option>';
+        
+        if (bankDatabase[country]) {
+            bankDatabase[country].forEach(bank => {
+                const option = document.createElement('option');
+                option.value = bank;
+                option.textContent = bank;
+                transferBank.appendChild(option);
+            });
+        }
+    }
+
+    // Validate routing number
+    function validateRoutingNumber(routingNumber) {
+        // Basic validation - check if it's 9 digits
+        const routingRegex = /^\d{9}$/;
+        return routingRegex.test(routingNumber);
+    }
+
+    // Validate account number
+    function validateAccountNumber(accountNumber) {
+        // Basic validation - check if it's between 5 and 17 digits
+        const accountRegex = /^\d{5,17}$/;
+        return accountRegex.test(accountNumber);
+    }
+
+    // Real-time validation for routing number
+    document.getElementById('routing-number').addEventListener('input', function() {
+        const value = this.value;
+        const routingFeedback = document.getElementById('routing-feedback');
+        
+        if (value === '') {
+            routingFeedback.textContent = '';
+            routingFeedback.className = 'validation-feedback';
+            return;
+        }
+        
+        if (validateRoutingNumber(value)) {
+            routingFeedback.textContent = 'Valid routing number';
+            routingFeedback.className = 'validation-feedback valid';
+        } else {
+            routingFeedback.textContent = 'Routing number must be 9 digits';
+            routingFeedback.className = 'validation-feedback invalid';
+        }
+    });
+
+    // Real-time validation for account number
+    document.getElementById('account-number').addEventListener('input', function() {
+        const value = this.value;
+        const accountFeedback = document.getElementById('account-feedback');
+        
+        if (value === '') {
+            accountFeedback.textContent = '';
+            accountFeedback.className = 'validation-feedback';
+            return;
+        }
+        
+        if (validateAccountNumber(value)) {
+            accountFeedback.textContent = 'Valid account number';
+            accountFeedback.className = 'validation-feedback valid';
+        } else {
+            accountFeedback.textContent = 'Account number must be 5-17 digits';
+            accountFeedback.className = 'validation-feedback invalid';
+        }
+    });
+
+    // Transfer initiation
+    document.getElementById('initiate-transfer-btn').addEventListener('click', function() {
+        const transferForm = document.getElementById('transfer-form');
+        
+        // Validate transfer form
+        if (!transferForm.checkValidity()) {
+            transferForm.reportValidity();
+            return;
+        }
+        
+        // Validate routing and account numbers
+        const routingNumber = document.getElementById('routing-number').value;
+        const accountNumber = document.getElementById('account-number').value;
+        
+        if (!validateRoutingNumber(routingNumber)) {
+            document.getElementById('routing-feedback').textContent = 'Please enter a valid 9-digit routing number';
+            document.getElementById('routing-feedback').className = 'validation-feedback invalid';
+            return;
+        }
+        
+        if (!validateAccountNumber(accountNumber)) {
+            document.getElementById('account-feedback').textContent = 'Please enter a valid 5-17 digit account number';
+            document.getElementById('account-feedback').className = 'validation-feedback invalid';
+            return;
+        }
+        
+        // Collect transfer data
+        currentTransferData = {
+            country: document.getElementById('transfer-country').value,
+            bank: document.getElementById('transfer-bank').value,
+            recipient: document.getElementById('transfer-recipient').value,
+            reason: document.getElementById('transfer-reason').value,
+            amount: document.getElementById('transfer-amount').value,
+            routingNumber: routingNumber,
+            accountNumber: accountNumber,
+            timestamp: new Date().toISOString()
+        };
+        
+        // Show security codes section
+        document.getElementById('transfer-form-container').style.display = 'none';
+        document.getElementById('security-codes-container').style.display = 'block';
+        
+        // Check if user has NRC code assigned
+        if (!currentUser.codes.NRC) {
+            document.getElementById('NRC-code-input').disabled = true;
+            document.getElementById('NRC-code-input').placeholder = "NRC code not assigned. Please contact admin.";
+            document.getElementById('verify-NRC-btn').disabled = true;
+            document.getElementById('verify-NRC-btn').textContent = "NRC Code Not Available";
+            showNotification("Security Code Required", "Your NRC code has not been assigned. Please contact the administrator to receive your security codes.", "warning");
+            return;
+        }
+        
+        // Enable first code input
+        document.getElementById('NRC-code-input').disabled = false;
+    });
+
+    // NRC Code Verification
+    document.getElementById('verify-NRC-btn').addEventListener('click', function() {
+        const NRCCodeInput = document.getElementById('NRC-code-input');
+        const NRCFeedback = document.getElementById('NRC-feedback');
+        
+        if (!NRCCodeInput.value.trim()) {
+            NRCFeedback.textContent = 'Please enter your NRC code';
+            NRCFeedback.className = 'code-input-feedback invalid';
+            return;
+        }
+        
+        // Validate against user's assigned NRC code
+        if (NRCCodeInput.value !== currentUser.codes.NRC) {
+            NRCFeedback.textContent = 'Invalid NRC code. Please try again.';
+            NRCFeedback.className = 'code-input-feedback invalid';
+            return;
+        }
+        
+        // Valid code
+        NRCFeedback.textContent = 'NRC code verified successfully!';
+        NRCFeedback.className = 'code-input-feedback valid';
+        
+        // Check if user has IMF code assigned
+        if (!currentUser.codes.imf) {
+            document.getElementById('imf-code-input').disabled = true;
+            document.getElementById('imf-code-input').placeholder = "IMF code not assigned. Please contact admin.";
+            document.getElementById('verify-imf-btn').disabled = true;
+            document.getElementById('verify-imf-btn').textContent = "IMF Code Not Available";
+            showNotification("Security Code Required", "Your IMF code has not been assigned. Please contact the administrator to receive your security codes.", "warning");
+            return;
+        }
+        
+        // Move to next step after a brief delay
+        setTimeout(() => {
+            document.getElementById('NRC-code-step').classList.remove('active');
+            document.getElementById('imf-code-step').classList.add('active');
+            document.getElementById('imf-code-input').disabled = false;
+        }, 1000);
+    });
+
+    // IMF Code Verification and Transfer Completion
+    document.getElementById('verify-imf-btn').addEventListener('click', function() {
+        const imfCodeInput = document.getElementById('imf-code-input');
+        const imfFeedback = document.getElementById('imf-feedback');
+        
+        if (!imfCodeInput.value.trim()) {
+            imfFeedback.textContent = 'Please enter your IMF code';
+            imfFeedback.className = 'code-input-feedback invalid';
+            return;
+        }
+        
+        // Validate against user's assigned IMF code
+        if (imfCodeInput.value !== currentUser.codes.imf) {
+            imfFeedback.textContent = 'Invalid IMF code. Please try again.';
+            imfFeedback.className = 'code-input-feedback invalid';
+            return;
+        }
+        
+        // Valid code - complete the transfer
+        imfFeedback.textContent = 'IMF code verified successfully! Processing transfer...';
+        imfFeedback.className = 'code-input-feedback valid';
+        
+        // Process the transfer after a brief delay
+        setTimeout(() => {
+            completeTransferProcess();
+        }, 1500);
+    });
+
+    // Complete transfer process
+    function completeTransferProcess() {
+        // Hide security codes section
+        document.getElementById('security-codes-container').style.display = 'none';
+        
+        // Update user balance
+        const amount = parseFloat(currentTransferData.amount);
+        currentUser.balance -= amount;
+        
+        // Add transaction to history
+        currentUser.transactions.push({
+            id: Date.now(),
+            date: new Date().toISOString().split('T')[0],
+            description: `International transfer to ${currentTransferData.bank} - ${currentTransferData.reason}`,
+            amount: -amount,
+            type: 'debit'
+        });
+        
+        // Update dashboard
+        updateUserDashboard(currentUser);
+        
+        // Show transfer details
+        document.getElementById('transfer-details').innerHTML = `
+            <div class="transfer-detail-item">
+                <span class="transfer-detail-label">Amount:</span>
+                <span class="transfer-detail-value">$${amount.toFixed(2)}</span>
+            </div>
+            <div class="transfer-detail-item">
+                <span class="transfer-detail-label">Recipient:</span>
+                <span class="transfer-detail-value">${currentTransferData.recipient}</span>
+            </div>
+            <div class="transfer-detail-item">
+                <span class="transfer-detail-label">Bank:</span>
+                <span class="transfer-detail-value">${currentTransferData.bank}</span>
+            </div>
+            <div class="transfer-detail-item">
+                <span class="transfer-detail-label">Country:</span>
+                <span class="transfer-detail-value">${currentTransferData.country}</span>
+            </div>
+            <div class="transfer-detail-item">
+                <span class="transfer-detail-label">Routing Number:</span>
+                <span class="transfer-detail-value">${currentTransferData.routingNumber}</span>
+            </div>
+            <div class="transfer-detail-item">
+                <span class="transfer-detail-label">Account Number:</span>
+                <span class="transfer-detail-value">${currentTransferData.accountNumber}</span>
+            </div>
+            <div class="transfer-detail-item">
+                <span class="transfer-detail-label">Transaction ID:</span>
+                <span class="transfer-detail-value">TRX-${Date.now().toString().slice(-6)}</span>
+            </div>
+        `;
+        
+        // Show success message
+        document.getElementById('transfer-success').style.display = 'block';
+    }
+
+    // Reset transfer modal to initial state
+    function resetTransferModal() {
+        // Reset form
+        document.getElementById('transfer-form').reset();
+        
+        // Reset bank selection and routing/account fields
+        document.getElementById('bank-selection-container').classList.remove('active');
+        document.getElementById('routing-account-fields').classList.remove('active');
+        
+        // Reset security code steps
+        document.getElementById('NRC-code-step').classList.add('active');
+        document.getElementById('imf-code-step').classList.remove('active');
+        
+        // Clear code inputs and feedback
+        document.getElementById('NRC-code-input').value = '';
+        document.getElementById('imf-code-input').value = '';
+        
+        document.getElementById('NRC-code-input').disabled = false;
+        document.getElementById('imf-code-input').disabled = false;
+        
+        document.getElementById('NRC-code-input').placeholder = "Enter NRC code";
+        document.getElementById('imf-code-input').placeholder = "Enter IMF code";
+        
+        document.getElementById('verify-NRC-btn').disabled = false;
+        document.getElementById('verify-imf-btn').disabled = false;
+        
+        document.getElementById('verify-NRC-btn').textContent = "Verify NRC Code";
+        document.getElementById('verify-imf-btn').textContent = "Complete Transfer";
+        
+        document.getElementById('NRC-feedback').textContent = '';
+        document.getElementById('imf-feedback').textContent = '';
+        
+        // Clear validation feedback
+        document.getElementById('routing-feedback').textContent = '';
+        document.getElementById('account-feedback').textContent = '';
+        
+        // Reset display states
+        document.getElementById('transfer-form-container').style.display = 'block';
+        document.getElementById('security-codes-container').style.display = 'none';
+        document.getElementById('transfer-success').style.display = 'none';
+        
+        // Reset variables
+        currentTransferData = null;
+    }
+
+    // ==================== PAY BILLS, ETRANSFER, AND INVEST FUNCTIONALITY ====================
+
+    // Pay Bills functionality
+    document.getElementById('pay-bills-btn').addEventListener('click', () => {
+        if (!currentUser.isActive) {
+            showMessage(document.getElementById('admin-message'), 'Please contact the admin to activate your account for bill payments.');
+            return;
+        }
+        
+        document.getElementById('pay-bills-modal').style.display = 'block';
+    });
+
+    document.getElementById('close-pay-bills-modal').addEventListener('click', () => {
+        document.getElementById('pay-bills-modal').style.display = 'none';
+        document.getElementById('pay-bills-form').reset();
+        document.getElementById('pay-bills-success').style.display = 'none';
+    });
+
+    document.getElementById('close-pay-bills-success').addEventListener('click', () => {
+        document.getElementById('pay-bills-modal').style.display = 'none';
+        document.getElementById('pay-bills-form').reset();
+        document.getElementById('pay-bills-success').style.display = 'none';
+    });
+
+    document.getElementById('confirm-pay-bill-btn').addEventListener('click', () => {
+        const billType = document.getElementById('bill-type').value;
+        const billAccount = document.getElementById('bill-account').value;
+        const billAmount = parseFloat(document.getElementById('bill-amount').value);
+        const billDueDate = document.getElementById('bill-due-date').value;
+
+        if (!billType || !billAccount || !billAmount || !billDueDate) {
+            showNotification("Missing Information", "Please fill all required fields.", "warning");
+            return;
+        }
+
+        if (billAmount > currentUser.balance) {
+            showNotification("Insufficient Funds", "You don't have enough balance to pay this bill.", "error");
+            return;
+        }
+
+        // Process bill payment
+        currentUser.balance -= billAmount;
+        currentUser.transactions.push({
+            id: Date.now(),
+            date: new Date().toISOString().split('T')[0],
+            description: `Bill payment - ${billType} (${billAccount})`,
+            amount: -billAmount,
+            type: 'debit'
+        });
+
+        // Update dashboard
+        updateUserDashboard(currentUser);
+
+        // Show success
+        document.getElementById('pay-bills-form').style.display = 'none';
+        document.getElementById('pay-bills-success').style.display = 'block';
+
+        showNotification("Bill Paid", `Your ${billType} bill has been paid successfully.`, "success");
+    });
+
+    // eTransfer functionality
+    document.getElementById('etransfer-btn').addEventListener('click', () => {
+        if (!currentUser.isActive) {
+            showMessage(document.getElementById('admin-message'), 'Please contact the admin to activate your account for e-Transfers.');
+            return;
+        }
+        
+        document.getElementById('etransfer-modal').style.display = 'block';
+    });
+
+    document.getElementById('close-etransfer-modal').addEventListener('click', () => {
+        document.getElementById('etransfer-modal').style.display = 'none';
+        document.getElementById('etransfer-form').reset();
+        document.getElementById('etransfer-success').style.display = 'none';
+    });
+
+    document.getElementById('close-etransfer-success').addEventListener('click', () => {
+        document.getElementById('etransfer-modal').style.display = 'none';
+        document.getElementById('etransfer-form').reset();
+        document.getElementById('etransfer-success').style.display = 'none';
+    });
+
+    document.getElementById('confirm-etransfer-btn').addEventListener('click', () => {
+        const etransferRecipient = document.getElementById('etransfer-recipient').value;
+        const etransferAmount = parseFloat(document.getElementById('etransfer-amount').value);
+        const etransferMessage = document.getElementById('etransfer-message').value;
+
+        if (!etransferRecipient || !etransferAmount) {
+            showNotification("Missing Information", "Please fill all required fields.", "warning");
+            return;
+        }
+
+        if (etransferAmount > currentUser.balance) {
+            showNotification("Insufficient Funds", "You don't have enough balance to send this e-Transfer.", "error");
+            return;
+        }
+
+        // Process eTransfer
+        currentUser.balance -= etransferAmount;
+        currentUser.transactions.push({
+            id: Date.now(),
+            date: new Date().toISOString().split('T')[0],
+            description: `e-Transfer to ${etransferRecipient}${etransferMessage ? ` - ${etransferMessage}` : ''}`,
+            amount: -etransferAmount,
+            type: 'debit'
+        });
+
+        // Update dashboard
+        updateUserDashboard(currentUser);
+
+        // Show success
+        document.getElementById('etransfer-form').style.display = 'none';
+        document.getElementById('etransfer-success').style.display = 'block';
+
+        showNotification("e-Transfer Sent", `Your e-Transfer to ${etransferRecipient} has been sent successfully.`, "success");
+    });
+
+    // Invest functionality
+    document.getElementById('invest-btn').addEventListener('click', () => {
+        if (!currentUser.isActive) {
+            showMessage(document.getElementById('admin-message'), 'Please contact the admin to activate your account for investments.');
+            return;
+        }
+        
+        document.getElementById('invest-modal').style.display = 'block';
+    });
+
+    document.getElementById('close-invest-modal').addEventListener('click', () => {
+        document.getElementById('invest-modal').style.display = 'none';
+        document.getElementById('invest-form').reset();
+        document.getElementById('invest-success').style.display = 'none';
+    });
+
+    document.getElementById('close-invest-success').addEventListener('click', () => {
+        document.getElementById('invest-modal').style.display = 'none';
+        document.getElementById('invest-form').reset();
+        document.getElementById('invest-success').style.display = 'none';
+    });
+
+    document.getElementById('confirm-invest-btn').addEventListener('click', () => {
+        const investmentType = document.getElementById('investment-type').value;
+        const investmentAmount = parseFloat(document.getElementById('investment-amount').value);
+        const investmentDuration = document.getElementById('investment-duration').value;
+
+        if (!investmentType || !investmentAmount || !investmentDuration) {
+            showNotification("Missing Information", "Please fill all required fields.", "warning");
+            return;
+        }
+
+        if (investmentAmount > currentUser.balance) {
+            showNotification("Insufficient Funds", "You don't have enough balance to make this investment.", "error");
+            return;
+        }
+
+        // Process investment
+        currentUser.balance -= investmentAmount;
+        currentUser.transactions.push({
+            id: Date.now(),
+            date: new Date().toISOString().split('T')[0],
+            description: `Investment in ${investmentType} for ${investmentDuration} months`,
+            amount: -investmentAmount,
+            type: 'debit'
+        });
+
+        // Update dashboard
+        updateUserDashboard(currentUser);
+
+        // Show success
+        document.getElementById('invest-form').style.display = 'none';
+        document.getElementById('invest-success').style.display = 'block';
+
+        showNotification("Investment Made", `Your investment in ${investmentType} has been processed successfully.`, "success");
+    });
+
+    // ==================== ADMIN DASHBOARD FUNCTIONALITY ====================
+
+    // Admin dashboard functionality
+    document.getElementById('create-user-btn').addEventListener('click', () => {
+        showAdminForm(document.getElementById('create-user-form'));
+    });
+
+    document.getElementById('manage-users-btn').addEventListener('click', () => {
+        showAdminForm(document.getElementById('manage-users-form'));
+        populateUserList();
+    });
+
+    document.getElementById('view-all-users-btn').addEventListener('click', () => {
+        showAdminForm(document.getElementById('view-all-users-form'));
+        populateUserManagementTable();
+    });
+
+    document.getElementById('assign-codes-btn').addEventListener('click', () => {
+        showAdminForm(document.getElementById('assign-codes-form'));
+        populateUserSelects();
+    });
+
+    document.getElementById('add-deposit-btn').addEventListener('click', () => {
+        showAdminForm(document.getElementById('add-deposit-form'));
+        populateUserSelects();
+
+        // Set current date and time as default
+        const now = new Date();
+        const currentDate = now.toISOString().split('T')[0];
+        const currentTime = now.toTimeString().split(' ')[0].substring(0, 5);
+
+        document.getElementById('deposit-date').value = currentDate;
+        document.getElementById('deposit-time').value = currentTime;
+        document.getElementById('use-current-time').checked = true;
+
+        // Update date/time fields visibility
+        updateDateTimeFieldsVisibility();
+    });
+
+    // Show specific admin form and hide others
+    function showAdminForm(formToShow) {
+        document.querySelectorAll('.admin-form').forEach(form => {
+            form.classList.remove('active');
+        });
+        formToShow.classList.add('active');
+        hideAdminMessages();
+    }
+
+    // Hide admin messages
+    function hideAdminMessages() {
+        document.getElementById('admin-success-message').style.display = 'none';
+        document.getElementById('admin-error-message').style.display = 'none';
+    }
+
+    // Populate user selects for various functions
+    function populateUserSelects() {
+        // Clear existing options
+        const selectUser = document.getElementById('select-user');
+        const depositUser = document.getElementById('deposit-user');
+        
+        selectUser.innerHTML = '<option value="">Select a user</option>';
+        depositUser.innerHTML = '<option value="">Select a user</option>';
+
+        // Add non-admin users
+        userDatabase.forEach(user => {
+            if (!user.isAdmin) {
+                const option1 = document.createElement('option');
+                option1.value = user.username;
+                option1.textContent = `${user.fullname} (${user.username})`;
+                selectUser.appendChild(option1);
+
+                const option2 = document.createElement('option');
+                option2.value = user.username;
+                option2.textContent = `${user.fullname} (${user.username})`;
+                depositUser.appendChild(option2);
+            }
+        });
+    }
+
+    // Create user from admin dashboard
+    document.getElementById('admin-create-user-btn').addEventListener('click', () => {
+        const fullname = document.getElementById('admin-fullname').value;
+        const email = document.getElementById('admin-email').value;
+        const phone = document.getElementById('admin-phone').value;
+        const username = document.getElementById('admin-username').value;
+        const accountType = document.getElementById('admin-account-type').value;
+        const password = document.getElementById('admin-password').value;
+        const accountNumber = document.getElementById('admin-account-number').value;
+        const adminProfileImageInput = document.getElementById('admin-profile-image');
+
+        if (!fullname || !email || !phone || !username || !accountType || !password) {
+            showMessage(document.getElementById('admin-error-message'), 'Please fill all fields.');
+            return;
+        }
+
+        if (userDatabase.find(user => user.username === username)) {
+            showMessage(document.getElementById('admin-error-message'), 'Username already exists.');
+            return;
+        }
+
+        // Get profile image if uploaded
+        let profileImage = null;
+        if (adminProfileImageInput.files && adminProfileImageInput.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                profileImage = e.target.result;
+            };
+            reader.readAsDataURL(adminProfileImageInput.files[0]);
+        }
+
+        userDatabase.push({
+            fullname,
+            email,
+            phone,
+            username,
+            accountType,
+            password,
+            profileImage,
+            accountNumber: accountNumber || "TD" + Math.floor(100000000 + Math.random() * 900000000),
+            isAdmin: false,
+            isActive: true, // Admin-created users are active by default
+            balance: 0,
+            codes: {
+                NRC: "",
+                imf: ""
+            },
+            transactions: [],
+            registrationDate: new Date().toISOString(),
+            lastLogin: null,
+            ipAddress: "192.168.1." + Math.floor(Math.random() * 255)
+        });
+
+        // Clear form
+        document.getElementById('admin-fullname').value = '';
+        document.getElementById('admin-email').value = '';
+        document.getElementById('admin-phone').value = '';
+        document.getElementById('admin-username').value = '';
+        document.getElementById('admin-account-type').value = '';
+        document.getElementById('admin-password').value = '';
+        document.getElementById('admin-account-number').value = '';
+        document.getElementById('admin-image-preview').innerHTML = `
+            <div class="image-preview-placeholder">
+                <i class="fas fa-user"></i>
+                <span>No image selected</span>
+            </div>
+        `;
+
+        showMessage(document.getElementById('admin-success-message'), `User ${fullname} created successfully.`);
+        populateUserSelects();
+        populateUserList();
+        populateUserManagementTable();
+    });
+
+    // Assign codes to user
+    document.getElementById('assign-codes-btn-submit').addEventListener('click', () => {
+        const username = document.getElementById('select-user').value;
+        const NRCCode = document.getElementById('NRC-code').value;
+        const imfCode = document.getElementById('imf-code').value;
+
+        if (!username) {
+            showMessage(document.getElementById('admin-error-message'), 'Please select a user.');
+            return;
+        }
+
+        const user = userDatabase.find(u => u.username === username);
+        if (user) {
+            user.codes.NRC = NRCCode;
+            user.codes.imf = imfCode;
+
+            showMessage(document.getElementById('admin-success-message'), `Security codes assigned to ${user.fullname} successfully.`);
+            populateUserList();
+            populateUserManagementTable();
+
+            // Clear form
+            document.getElementById('NRC-code').value = '';
+            document.getElementById('imf-code').value = '';
+        }
+    });
+
+    // Add deposit to user account
+    document.getElementById('add-deposit-btn-submit').addEventListener('click', () => {
+        const username = document.getElementById('deposit-user').value;
+        const amount = parseFloat(document.getElementById('deposit-amount').value);
+        const description = document.getElementById('deposit-description').value;
+        const useCurrentTime = document.getElementById('use-current-time').checked;
+        const depositDate = document.getElementById('deposit-date').value;
+        const depositTime = document.getElementById('deposit-time').value;
+
+        if (!username) {
+            showMessage(document.getElementById('admin-error-message'), 'Please select a user.');
+            return;
+        }
+
+        if (!amount || amount <= 0) {
+            showMessage(document.getElementById('admin-error-message'), 'Please enter a valid amount.');
+            return;
+        }
+
+        const user = userDatabase.find(u => u.username === username);
+        if (user) {
+            // Determine the transaction date
+            let transactionDate;
+
+            if (useCurrentTime) {
+                // Use current date and time
+                transactionDate = new Date().toISOString().split('T')[0];
+            } else {
+                // Use custom date and time
+                if (!depositDate) {
+                    showMessage(document.getElementById('admin-error-message'), 'Please select a date for the deposit.');
+                    return;
+                }
+
+                if (!depositTime) {
+                    showMessage(document.getElementById('admin-error-message'), 'Please select a time for the deposit.');
+                    return;
+                }
+
+                // Combine date and time into a single ISO string
+                const dateTimeString = `${depositDate}T${depositTime}`;
+                transactionDate = new Date(dateTimeString).toISOString().split('T')[0];
+            }
+
+            user.balance += amount;
+            user.transactions.push({
+                id: Date.now(),
+                date: transactionDate,
+                description: description || 'Admin Deposit',
+                amount: amount,
+                type: 'credit'
+            });
+
+            showMessage(document.getElementById('admin-success-message'), `$${amount.toFixed(2)} deposited to ${user.fullname}'s account successfully.`);
+            populateUserList();
+            populateUserManagementTable();
+
+            // Clear form
+            document.getElementById('deposit-amount').value = '';
+            document.getElementById('deposit-description').value = '';
+            document.getElementById('deposit-date').value = '';
+            document.getElementById('deposit-time').value = '';
+            document.getElementById('use-current-time').checked = true;
+
+            // Update date/time fields visibility
+            updateDateTimeFieldsVisibility();
+        }
+    });
+
+    // Function to update date/time fields visibility based on checkbox
+    function updateDateTimeFieldsVisibility() {
+        const useCurrentTime = document.getElementById('use-current-time').checked;
+        const dateTimeGroup = document.querySelector('.datetime-group');
+
+        if (useCurrentTime) {
+            dateTimeGroup.style.opacity = '0.5';
+            dateTimeGroup.style.pointerEvents = 'none';
+        } else {
+            dateTimeGroup.style.opacity = '1';
+            dateTimeGroup.style.pointerEvents = 'all';
+        }
+    }
+
+    // Populate user list for manage users
+    function populateUserList() {
+        const userList = document.getElementById('user-list');
+        userList.innerHTML = '';
+
+        userDatabase.forEach(user => {
+            if (!user.isAdmin) {
+                const userCard = document.createElement('div');
+                userCard.className = 'user-card';
+                userCard.innerHTML = `
+                    <div class="user-info">
+                        <h3>${user.fullname}</h3>
+                        <p>${user.username} | ${user.email}</p>
+                    </div>
+                    <div class="user-status">
+                        <span class="status-badge ${user.isActive ? 'status-active' : 'status-inactive'}">
+                            ${user.isActive ? 'Active' : 'Inactive'}
+                        </span>
+                        <div class="user-actions">
+                            <button class="user-action-btn toggle-status" data-username="${user.username}">
+                                <i class="fas ${user.isActive ? 'fa-pause' : 'fa-play'}"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                userList.appendChild(userCard);
+            }
+        });
+
+        // Add event listeners
+        document.querySelectorAll('.toggle-status').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const username = this.getAttribute('data-username');
+                toggleUserStatus(username);
+            });
+        });
+    }
+
+    // Toggle user status
+    function toggleUserStatus(username) {
+        const user = userDatabase.find(u => u.username === username);
+        if (user) {
+            user.isActive = !user.isActive;
+            populateUserList();
+            populateUserManagementTable();
+            showMessage(document.getElementById('admin-success-message'), `User ${user.fullname} ${user.isActive ? 'activated' : 'deactivated'} successfully.`);
+        }
+    }
+
+    // Populate user management table
+    function populateUserManagementTable(searchTerm = '') {
+        const userManagementTableBody = document.getElementById('user-management-table-body');
+        userManagementTableBody.innerHTML = '';
+
+        let filteredUsers = userDatabase;
+
+        // Apply search filter if provided
+        if (searchTerm) {
+            filteredUsers = userDatabase.filter(user =>
+                user.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                user.fullname.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                user.phone.includes(searchTerm)
+            );
+        }
+
+        // Update user count
+        document.getElementById('user-count').textContent = filteredUsers.length;
+
+        filteredUsers.forEach(user => {
+            const row = document.createElement('tr');
+
+            // Format dates for display
+            const registrationDate = new Date(user.registrationDate).toLocaleDateString();
+            const lastLogin = user.lastLogin ? new Date(user.lastLogin).toLocaleDateString() : 'Never';
+
+            // Determine account type badge class
+            let accountTypeClass = '';
+            if (user.accountType === 'savings') {
+                accountTypeClass = 'account-type-savings';
+            } else if (user.accountType === 'checking') {
+                accountTypeClass = 'account-type-checking';
+            } else if (user.accountType === 'admin') {
+                accountTypeClass = 'account-type-admin';
+            }
+
+            // Format account type for display
+            let accountTypeDisplay = '';
+            if (user.accountType === 'savings') {
+                accountTypeDisplay = 'Savings';
+            } else if (user.accountType === 'checking') {
+                accountTypeDisplay = 'Checking';
+            } else if (user.accountType === 'admin') {
+                accountTypeDisplay = 'Admin';
+            }
+
+            row.innerHTML = `
+                <td>${user.username}</td>
+                <td>${user.fullname}</td>
+                <td>${user.email}</td>
+                <td><span class="account-type-badge ${accountTypeClass}">${accountTypeDisplay}</span></td>
+                <td>${user.phone}</td>
+                <td>$${user.balance.toFixed(2)}</td>
+                <td>${registrationDate}</td>
+                <td>${lastLogin}</td>
+                <td class="password-cell">
+                    <span class="masked-password">••••••••</span>
+                    <button class="password-toggle-btn" data-password="${user.password}">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </td>
+                <td class="${user.isActive ? 'status-active' : 'status-inactive'}">
+                    ${user.isActive ? 'Active' : 'Inactive'}
+                </td>
+                <td>${user.ipAddress}</td>
+                <td>${user.codes.NRC || 'Not assigned'}</td>
+                <td>${user.codes.imf || 'Not assigned'}</td>
+                <td>${user.accountNumber}</td>
+                <td>
+                    <button class="user-action-btn toggle-status" data-username="${user.username}">
+                        <i class="fas ${user.isActive ? 'fa-pause' : 'fa-play'}"></i>
+                    </button>
+                </td>
+            `;
+
+            userManagementTableBody.appendChild(row);
+        });
+
+        // Add event listeners to password toggle buttons
+        document.querySelectorAll('.password-toggle-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const passwordSpan = this.previousElementSibling;
+                const password = this.getAttribute('data-password');
+
+                if (passwordSpan.classList.contains('masked-password')) {
+                    passwordSpan.textContent = password;
+                    passwordSpan.classList.remove('masked-password');
+                    this.innerHTML = '<i class="fas fa-eye-slash"></i>';
+                } else {
+                    passwordSpan.textContent = '••••••••';
+                    passwordSpan.classList.add('masked-password');
+                    this.innerHTML = '<i class="fas fa-eye"></i>';
+                }
+            });
+        });
+
+        // Add event listeners to toggle status buttons
+        document.querySelectorAll('.toggle-status').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const username = this.getAttribute('data-username');
+                toggleUserStatus(username);
+            });
+        });
+    }
+
+    // ==================== INITIALIZATION ====================
+
+    // Initialize the application
+    document.addEventListener('DOMContentLoaded', function() {
+        // Set initial greeting
+        setGreetingBasedOnTime();
+        
+        // Update time display every second
+        updateTimeDisplay();
+        setInterval(updateTimeDisplay, 1000);
+        
+        // Set up date/time fields visibility
+        updateDateTimeFieldsVisibility();
+        document.getElementById('use-current-time').addEventListener('change', updateDateTimeFieldsVisibility);
+        
+        // Set up user search
+        document.getElementById('search-btn').addEventListener('click', function() {
+            const searchTerm = document.getElementById('user-search').value;
+            populateUserManagementTable(searchTerm);
+        });
+        
+        document.getElementById('user-search').addEventListener('keyup', function(e) {
+            if (e.key === 'Enter') {
+                const searchTerm = this.value;
+                populateUserManagementTable(searchTerm);
+            }
+        });
+        
+        // Set up profile image functionality
+        setupProfileImageUpload();
+    });
+</script>
+</body>
+</html>

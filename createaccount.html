@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TD Bank - Create Account</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #00A850 0%, #007C3E 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 450px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .register-header {
+            background-color: #00A850;
+            padding: 25px;
+            text-align: center;
+            position: relative;
+        }
+
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .td-logo {
+            width: 50px;
+            height: 50px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #00A850;
+            font-weight: bold;
+            font-size: 22px;
+            margin: 0 auto;
+        }
+
+        .register-header h1 {
+            color: white;
+            font-size: 24px;
+            font-weight: 500;
+            margin-top: 10px;
+        }
+
+        .register-form {
+            padding: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .input-group input, .input-group select, .input-group textarea {
+            width: 100%;
+            padding: 14px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+            padding-right: 45px;
+        }
+
+        .input-group input:focus, .input-group select:focus, .input-group textarea:focus {
+            border-color: #00A850;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(0, 168, 80, 0.2);
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 42px;
+            cursor: pointer;
+            color: #777;
+            z-index: 10;
+            background: none;
+            border: none;
+            font-size: 16px;
+        }
+
+        .password-toggle:hover {
+            color: #00A850;
+        }
+
+        .btn {
+            background-color: #00A850;
+            color: white;
+            border: none;
+            padding: 14px;
+            width: 100%;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        .btn:hover {
+            background-color: #007C3E;
+        }
+
+        .login-section {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .login-section p {
+            color: #666;
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+
+        .login-section a {
+            color: #00A850;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .login-section a:hover {
+            text-decoration: underline;
+        }
+
+        .bold {
+            font-weight: 700;
+        }
+
+        .error-message {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .success-message {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        /* Image Upload Styles */
+        .image-upload-container {
+            margin-bottom: 20px;
+        }
+
+        .image-upload-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .image-preview {
+            width: 100px;
+            height: 100px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .image-preview img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .image-preview-placeholder {
+            color: #999;
+            font-size: 14px;
+        }
+
+        .upload-btn {
+            background-color: #00A850;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .upload-btn:hover {
+            background-color: #007C3E;
+        }
+
+        /* Footer Styles */
+        .footer {
+            background-color: #f5f5f5;
+            padding: 25px 20px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .footer-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            cursor: pointer;
+            flex: 1;
+            min-width: 90px;
+            max-width: 120px;
+            transition: transform 0.3s;
+        }
+
+        .footer-icon:hover {
+            transform: translateY(-5px);
+        }
+
+        .icon-circle {
+            width: 60px;
+            height: 60px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e0e0e0;
+            transition: all 0.3s;
+        }
+
+        .footer-icon:hover .icon-circle {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            background-color: #f9f9f9;
+        }
+
+        .icon-circle i {
+            color: #00A850;
+            font-size: 22px;
+        }
+
+        .footer-text {
+            color: #000;
+            font-size: 13px;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        /* Notification Styles */
+        .notification-toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #00A850;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            max-width: 350px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+
+        .notification-toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .notification-toast.error {
+            background-color: #dc3545;
+        }
+
+        .notification-toast.warning {
+            background-color: #ffc107;
+            color: #333;
+        }
+
+        .notification-icon {
+            font-size: 20px;
+        }
+
+        .notification-content {
+            flex: 1;
+        }
+
+        .notification-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .notification-message {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .notification-close {
+            background: none;
+            border: none;
+            color: inherit;
+            cursor: pointer;
+            font-size: 16px;
+            opacity: 0.7;
+        }
+
+        .notification-close:hover {
+            opacity: 1;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 480px) {
+            .container {
+                max-width: 100%;
+            }
+
+            .footer {
+                padding: 20px 10px;
+            }
+
+            .footer-icon {
+                min-width: 80px;
+            }
+
+            .icon-circle {
+                width: 50px;
+                height: 50px;
+            }
+
+            .icon-circle i {
+                font-size: 18px;
+            }
+
+            .footer-text {
+                font-size: 12px;
+            }
+
+            .register-form {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="register-header">
+            <div class="logo-container">
+                <div class="td-logo">TD</div>
+            </div>
+            <h1>Create Account</h1>
+        </div>
+
+        <div class="register-form">
+            <div class="error-message" id="register-error-message">
+                Please fill all fields correctly.
+            </div>
+
+            <div class="success-message" id="register-success-message">
+                Account created successfully! You can now log in.
+            </div>
+
+            <!-- Image Upload for User Registration -->
+            <div class="image-upload-container">
+                <label class="image-upload-label">Profile Image</label>
+                <input type="file" id="user-image" accept="image/*" style="display: none;">
+                <button type="button" class="upload-btn" id="upload-user-image-btn">
+                    <i class="fas fa-upload"></i> Upload Image
+                </button>
+                <div class="image-preview" id="user-image-preview">
+                    <div class="image-preview-placeholder">No image selected</div>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="fullname">Full Name</label>
+                <input type="text" id="fullname" placeholder="Enter your full name">
+            </div>
+
+            <div class="input-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="Enter your email">
+            </div>
+
+            <div class="input-group">
+                <label for="phone">Mobile Number</label>
+                <input type="tel" id="phone" placeholder="Enter your mobile number">
+            </div>
+
+            <div class="input-group">
+                <label for="new-username">Choose Username</label>
+                <input type="text" id="new-username" placeholder="Choose a username">
+            </div>
+
+            <div class="input-group">
+                <label for="account-type">Account Type</label>
+                <select id="account-type" required>
+                    <option value="">Select Account Type</option>
+                    <option value="savings">Savings Account</option>
+                    <option value="checking">Checking Account</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="new-password">Create Password</label>
+                <input type="password" id="new-password" placeholder="Create a password">
+                <button type="button" class="password-toggle" id="register-password-toggle">
+                    <i class="fas fa-eye"></i>
+                </button>
+            </div>
+
+            <div class="input-group">
+                <label for="confirm-password">Confirm Password</label>
+                <input type="password" id="confirm-password" placeholder="Confirm your password">
+                <button type="button" class="password-toggle" id="confirm-password-toggle">
+                    <i class="fas fa-eye"></i>
+                </button>
+            </div>
+
+            <button class="btn" id="register-btn">Create Account</button>
+
+            <div class="login-section">
+                <p>Already have an account? <a id="show-login">Log In</a></p>
+            </div>
+        </div>
+
+        <!-- Footer for Registration Screen -->
+        <div class="footer">
+            <a class="footer-icon" id="find-locations-register">
+                <div class="icon-circle">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <span class="footer-text">Find Locations</span>
+            </a>
+
+            <a class="footer-icon" id="contact-us-register">
+                <div class="icon-circle">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <span class="footer-text">Contact Us</span>
+            </a>
+
+            <a class="footer-icon" id="explore-products-register">
+                <div class="icon-circle">
+                    <i class="fas fa-credit-card"></i>
+                </div>
+                <span class="footer-text">Explore Products</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Notification Container -->
+    <div id="notification-container"></div>
+
+    <script>
+        // DOM Elements
+        const registerBtn = document.getElementById('register-btn');
+        const showLoginBtn = document.getElementById('show-login');
+        const registerErrorMessage = document.getElementById('register-error-message');
+        const registerSuccessMessage = document.getElementById('register-success-message');
+        
+        // Image upload elements
+        const userImageInput = document.getElementById('user-image');
+        const uploadUserImageBtn = document.getElementById('upload-user-image-btn');
+        const userImagePreview = document.getElementById('user-image-preview');
+        
+        // Password toggle elements
+        const registerPasswordToggle = document.getElementById('register-password-toggle');
+        const confirmPasswordToggle = document.getElementById('confirm-password-toggle');
+        const newPasswordInput = document.getElementById('new-password');
+        const confirmPasswordInput = document.getElementById('confirm-password');
+
+        // Simulated user database
+        let userDatabase = [];
+
+        // Register new account
+        registerBtn.addEventListener('click', () => {
+            const fullname = document.getElementById('fullname').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const username = document.getElementById('new-username').value;
+            const accountType = document.getElementById('account-type').value;
+            const password = document.getElementById('new-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+
+            // Get profile image
+            let profileImage = null;
+            if (userImageInput.files && userImageInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    profileImage = e.target.result;
+                    // Continue with registration after image is loaded
+                    completeRegistration(fullname, email, phone, username, accountType, password, confirmPassword, profileImage);
+                };
+                reader.readAsDataURL(userImageInput.files[0]);
+            } else {
+                completeRegistration(fullname, email, phone, username, accountType, password, confirmPassword, profileImage);
+            }
+        });
+
+        function completeRegistration(fullname, email, phone, username, accountType, password, confirmPassword, profileImage) {
+            // Simple validation
+            if (!fullname || !email || !phone || !username || !accountType || !password || !confirmPassword) {
+                showMessage(registerErrorMessage, 'Please fill all fields.');
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                showMessage(registerErrorMessage, 'Passwords do not match.');
+                return;
+            }
+
+            if (password.length < 6) {
+                showMessage(registerErrorMessage, 'Password must be at least 6 characters.');
+                return;
+            }
+
+            // Check if username already exists
+            if (userDatabase.find(user => user.username === username)) {
+                showMessage(registerErrorMessage, 'Username already exists. Please choose another.');
+                return;
+            }
+
+            // Get client IP address
+            const ipAddress = getClientIP();
+
+            // Create new user object
+            const newUser = {
+                fullname,
+                email,
+                phone,
+                username,
+                accountType,
+                password, // In a real application, this would be hashed
+                isAdmin: false,
+                isActive: false, // New users are inactive by default
+                balance: 0,
+                codes: {
+                    swift: "",
+                    cot: "",
+                    imf: ""
+                },
+                transactions: [],
+                // User tracking data
+                registrationDate: new Date().toISOString(),
+                lastLogin: null,
+                ipAddress: ipAddress,
+                profileImage: profileImage,
+                // Initialize time settings for new users
+                timeSettings: {
+                    timezone: "auto",
+                    dateFormat: "mm/dd/yyyy",
+                    timeFormat: "12h",
+                    transactionTimeAdjustment: 0,
+                    transactionDateAdjustment: 0
+                },
+                timeAuditTrail: []
+            };
+
+            // Add user to database
+            userDatabase.push(newUser);
+
+            // Send account creation notification
+            sendNotification(newUser, 'account_created');
+
+            // Clear form
+            document.getElementById('fullname').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('phone').value = '';
+            document.getElementById('new-username').value = '';
+            document.getElementById('account-type').value = '';
+            document.getElementById('new-password').value = '';
+            document.getElementById('confirm-password').value = '';
+            userImagePreview.innerHTML = '<div class="image-preview-placeholder">No image selected</div>';
+            userImageInput.value = '';
+
+            // Show success message
+            hideAllMessages();
+            showMessage(registerSuccessMessage, 'Account created successfully! Please wait for admin activation.');
+            
+            // Show notification
+            showNotification("Account Created", "Your TD Bank account has been created successfully!", "success");
+            
+            // Log to console
+            console.log('New user registered:', newUser);
+        }
+
+        // Image upload functionality
+        uploadUserImageBtn.addEventListener('click', () => {
+            userImageInput.click();
+        });
+
+        userImageInput.addEventListener('change', function() {
+            if (this.files && this.files[0]) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    userImagePreview.innerHTML = '';
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    userImagePreview.appendChild(img);
+                }
+
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+
+        // Password visibility toggle
+        function setupPasswordToggle(toggleElement, passwordField) {
+            if (!toggleElement || !passwordField) return;
+            
+            toggleElement.addEventListener('click', function() {
+                if (passwordField.type === 'password') {
+                    passwordField.type = 'text';
+                    this.innerHTML = '<i class="fas fa-eye-slash"></i>';
+                } else {
+                    passwordField.type = 'password';
+                    this.innerHTML = '<i class="fas fa-eye"></i>';
+                }
+            });
+        }
+
+        // Setup password toggles
+        setupPasswordToggle(registerPasswordToggle, newPasswordInput);
+        setupPasswordToggle(confirmPasswordToggle, confirmPasswordInput);
+
+        // Show login screen
+        showLoginBtn.addEventListener('click', () => {
+            alert('Login screen would be displayed here. In a full application, this would navigate to the login page.');
+            // In a real app: registerScreen.classList.remove('active'); loginScreen.classList.add('active');
+        });
+
+        // Footer button functionality
+        document.getElementById('find-locations-register').addEventListener('click', () => {
+            showNotification("Find Locations", "This would show bank branch locations in a real application.", "info");
+        });
+
+        document.getElementById('contact-us-register').addEventListener('click', () => {
+            showNotification("Contact Us", "This would open contact options in a real application.", "info");
+        });
+
+        document.getElementById('explore-products-register').addEventListener('click', () => {
+            showNotification("Explore Products", "This would show banking products in a real application.", "info");
+        });
+
+        // Helper functions
+        function showMessage(element, message) {
+            element.textContent = message;
+            element.style.display = 'block';
+            setTimeout(() => {
+                element.style.display = 'none';
+            }, 5000);
+        }
+
+        function hideAllMessages() {
+            registerErrorMessage.style.display = 'none';
+            registerSuccessMessage.style.display = 'none';
+        }
+
+        // Function to generate a random IP address (for simulation)
+        function generateRandomIP() {
+            return `${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}`;
+        }
+
+        // Function to get client IP (simulated)
+        function getClientIP() {
+            // In a real application, this would be retrieved from the server
+            // For simulation, we'll use a random IP
+            return generateRandomIP();
+        }
+
+        // Send notification function (simulates email/SMS)
+        function sendNotification(user, eventType) {
+            // In a real application, this would connect to email/SMS services
+            // For this simulation, we'll just show a notification and log to console
+            
+            let title, message;
+            const timestamp = new Date().toLocaleString();
+            
+            switch(eventType) {
+                case 'account_created':
+                    title = 'Account Created';
+                    message = `Your TD Bank account has been created successfully. Welcome ${user.fullname}!`;
+                    break;
+                    
+                default:
+                    title = 'Notification';
+                    message = 'You have a new notification from TD Bank.';
+            }
+            
+            // Log to console (simulating backend notification)
+            console.log(`NOTIFICATION SENT - Type: ${eventType}, User: ${user.username}, Time: ${timestamp}`);
+            console.log(`EMAIL: ${user.email} - ${title}: ${message}`);
+            console.log(`SMS: ${user.phone} - ${title}: ${message}`);
+        }
+
+        // Notification System
+        function showNotification(title, message, type = 'info', duration = 5000) {
+            const notificationContainer = document.getElementById('notification-container');
+            
+            const notification = document.createElement('div');
+            notification.className = `notification-toast ${type}`;
+            
+            const icon = type === 'error' ? 'exclamation-circle' : 
+                         type === 'warning' ? 'exclamation-triangle' : 
+                         type === 'success' ? 'check-circle' : 'info-circle';
+            
+            notification.innerHTML = `
+                <div class="notification-icon">
+                    <i class="fas fa-${icon}"></i>
+                </div>
+                <div class="notification-content">
+                    <div class="notification-title">${title}</div>
+                    <div class="notification-message">${message}</div>
+                </div>
+                <button class="notification-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            
+            notificationContainer.appendChild(notification);
+            
+            // Show notification with animation
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 100);
+            
+            // Close button functionality
+            const closeBtn = notification.querySelector('.notification-close');
+            closeBtn.addEventListener('click', () => {
+                hideNotification(notification);
+            });
+            
+            // Auto-hide after duration
+            if (duration > 0) {
+                setTimeout(() => {
+                    hideNotification(notification);
+                }, duration);
+            }
+            
+            return notification;
+        }
+
+        function hideNotification(notification) {
+            notification.classList.remove('show');
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 300);
+        }
+
+        // Initialize the page
+        window.addEventListener('DOMContentLoaded', (event) => {
+            // Any initialization code can go here
+            console.log('Registration page loaded successfully');
+        });
+    </script>
+</body>
+</html>

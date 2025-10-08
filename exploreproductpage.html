@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accounts and Services | TD Canada Trust</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f9f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .header {
+            background: linear-gradient(to right, #006747, #00a86b);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo {
+            height: 40px;
+            width: auto;
+        }
+        
+        .logo-text {
+            font-weight: bold;
+            font-size: 22px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: all 0.3s;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+        
+        .nav-links a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .user-actions {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .user-actions button {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .user-actions button:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        
+        .page-title {
+            font-size: 32px;
+            margin-bottom: 10px;
+            color: #006747;
+            font-weight: 600;
+        }
+        
+        .subtitle {
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: #666;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .service-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            border-left: 4px solid #00a86b;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        
+        .service-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            color: #006747;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .service-title i {
+            font-size: 22px;
+        }
+        
+        .service-description {
+            font-size: 15px;
+            color: #666;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+        
+        .service-footer {
+            margin-top: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .service-badge {
+            background-color: #e8f5e9;
+            color: #006747;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .service-arrow {
+            color: #00a86b;
+            font-size: 18px;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .action-button {
+            background-color: #006747;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 14px 25px;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+            box-shadow: 0 3px 8px rgba(0, 103, 71, 0.2);
+        }
+        
+        .action-button:hover {
+            background-color: #00563a;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 12px rgba(0, 103, 71, 0.3);
+        }
+        
+        .action-button.secondary {
+            background-color: white;
+            color: #006747;
+            border: 1px solid #006747;
+        }
+        
+        .action-button.secondary:hover {
+            background-color: #f0f9f0;
+        }
+        
+        .footer {
+            background-color: #00462a;
+            color: white;
+            padding: 30px 20px;
+            margin-top: 60px;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 20px;
+            border-top: 1px solid #006747;
+            color: #aaa;
+            font-size: 14px;
+        }
+        
+        .mobile-menu {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .modal-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #006747;
+        }
+        
+        .modal-close {
+            float: right;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links, .user-actions {
+                display: none;
+            }
+            
+            .mobile-menu {
+                display: block;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 0 15px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .action-button {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .logo-text {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo-container">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Toronto-Dominion_Bank_logo.svg" alt="TD Bank Logo" class="logo">
+            <div class="logo-text">TD Canada Trust</div>
+        </div>
+        
+        <nav class="nav-links">
+            <a href="#"><i class="fas fa-home"></i> Banking</a>
+            <a href="#"><i class="fas fa-chart-line"></i> Investing</a>
+            <a href="#"><i class="fas fa-shield-alt"></i> Insurance</a>
+            <a href="#"><i class="fas fa-piggy-bank"></i> Wealth</a>
+        </nav>
+        
+        <div class="user-actions">
+            <button><i class="fas fa-search"></i> Search</button>
+            <button><i class="btn" id="register-btn"></i> Sign In</button>
+        </div>
+        
+        <div class="mobile-menu">
+            <i class="fas fa-bars"></i>
+        </div>
+    </header>
+    
+    <div class="container">
+        <h1 class="page-title">Accounts and Services</h1>
+        <p class="subtitle">Explore your options</p>
+        
+        <div class="action-buttons">
+            <button class="action-button" id="addAccountBtn">
+                <i class="fas fa-plus-circle"></i>
+                Add an account or a financial service
+            </button>
+            <button class="action-button secondary" id="browseOffersBtn">
+                <i class="fas fa-tags"></i>
+                Browse offers
+            </button>
+        </div>
+        
+        <div class="services-grid">
+            <div class="service-card" data-service="bank-accounts">
+                <div class="service-title">
+                    <i class="fas fa-landmark"></i>
+                    Bank Accounts
+                </div>
+                <p class="service-description">Choose from chequing, savings, and US dollar accounts to meet your everyday banking needs with competitive interest rates.</p>
+                <div class="service-footer">
+                    <span class="service-badge">Popular</span>
+                    <i class="fas fa-arrow-right service-arrow"></i>
+                </div>
+            </div>
+            
+            <div class="service-card" data-service="credit-cards">
+                <div class="service-title">
+                    <i class="fas fa-credit-card"></i>
+                    Credit Cards
+                </div>
+                <p class="service-description">Find the right credit card with rewards, low interest rates, cash back options, and exclusive benefits.</p>
+                <div class="service-footer">
+                    <span class="service-badge">New Offers</span>
+                    <i class="fas fa-arrow-right service-arrow"></i>
+                </div>
+            </div>
+            
+            <div class="service-card" data-service="mortgages">
+                <div class="service-title">
+                    <i class="fas fa-home"></i>
+                    Mortgages
+                </div>
+                <p class="service-description">Get a mortgage that fits your needs with flexible payment options, competitive rates, and expert advice.</p>
+                <div class="service-footer">
+                    <span class="service-badge">Low Rates</span>
+                    <i class="fas fa-arrow-right service-arrow"></i>
+                </div>
+            </div>
+            
+            <div class="service-card" data-service="borrowing">
+                <div class="service-title">
+                    <i class="fas fa-hand-holding-usd"></i>
+                    Borrowing
+                </div>
+                <p class="service-description">Personal loans, lines of credit, and other borrowing options to help you achieve your financial goals.</p>
+                <div class="service-footer">
+                    <i class="fas fa-arrow-right service-arrow"></i>
+                </div>
+            </div>
+            
+            <div class="service-card" data-service="investing">
+                <div class="service-title">
+                    <i class="fas fa-chart-pie"></i>
+                    Personal Investing
+                </div>
+                <p class="service-description">Investment solutions to help you grow your wealth and plan for your future with expert guidance.</p>
+                <div class="service-footer">
+                    <i class="fas fa-arrow-right service-arrow"></i>
+                </div>
+            </div>
+            
+            <div class="service-card" data-service="travel-medical">
+                <div class="service-title">
+                    <i class="fas fa-suitcase-rolling"></i>
+                    Travel and Medical
+                </div>
+                <p class="service-description">Travel insurance and medical coverage options to protect you and your family wherever you go.</p>
+                <div class="service-footer">
+                    <span class="service-badge">Essential</span>
+                    <i class="fas fa-arrow-right service-arrow"></i>
+                </div>
+            </div>
+            
+            <div class="service-card" data-service="insurance">
+                <div class="service-title">
+                    <i class="fas fa-shield-alt"></i>
+                    Insurance
+                </div>
+                <p class="service-description">Life, health, home, and auto insurance options to suit your protection needs and give you peace of mind.</p>
+                <div class="service-footer">
+                    <i class="fas fa-arrow-right service-arrow"></i>
+                </div>
+            </div>
+            
+            <div class="service-card" data-service="direct-investing">
+                <div class="service-title">
+                    <i class="fas fa-chart-line"></i>
+                    TD Direct Investing
+                </div>
+                <p class="service-description">Advanced trading platform for self-directed investors with comprehensive tools and research.</p>
+                <div class="service-footer">
+                    <span class="service-badge">Pro</span>
+                    <i class="fas fa-arrow-right service-arrow"></i>
+                </div>
+            </div>
+            
+            <div class="service-card" data-service="easy-trade">
+                <div class="service-title">
+                    <i class="fas fa-mobile-alt"></i>
+                    TD Easy Trade
+                </div>
+                <p class="service-description">Simple investing platform with commission-free trades, perfect for beginners and casual investors.</p>
+                <div class="service-footer">
+                    <span class="service-badge">Easy</span>
+                    <i class="fas fa-arrow-right service-arrow"></i>
+                </div>
+            </div>
+        </div>
+        
+        <div class="action-buttons">
+            <button class="action-button secondary" id="contactAdvisorBtn">
+                <i class="fas fa-user-tie"></i>
+                Contact an Advisor
+            </button>
+            <button class="action-button" id="bookAppointmentBtn">
+                <i class="fas fa-calendar-check"></i>
+                Book an Appointment
+            </button>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Banking</h3>
+                <ul>
+                    <li><a href="#">Accounts</a></li>
+                    <li><a href="#">Credit Cards</a></li>
+                    <li><a href="#">Mortgages</a></li>
+                    <li><a href="#">Loans</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Investing</h3>
+                <ul>
+                    <li><a href="#">TD Direct Investing</a></li>
+                    <li><a href="#">TD Easy Trade</a></li>
+                    <li><a href="#">Wealth Management</a></li>
+                    <li><a href="#">Financial Planning</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Insurance</h3>
+                <ul>
+                    <li><a href="#">Life Insurance</a></li>
+                    <li><a href="#">Health Insurance</a></li>
+                    <li><a href="#">Travel Insurance</a></li>
+                    <li><a href="#">Home & Auto</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Branch Locator</a></li>
+                    <li><a href="#">Security Center</a></li>
+                    <li><a href="#">Help & FAQs</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>©TD Canada Trust. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <!-- Add Account Modal -->
+    <div class="modal" id="addAccountModal">
+        <div class="modal-content">
+            <span class="modal-close" id="closeAddAccountModal">&times;</span>
+            <h2 class="modal-title">Add an Account or Service</h2>
+            <div class="form-group">
+                <label for="accountType">Account Type</label>
+                <select id="accountType">
+                    <option value="">Select an account type</option>
+                    <option value="chequing">Chequing Account</option>
+                    <option value="savings">Savings Account</option>
+                    <option value="usd">US Dollar Account</option>
+                    <option value="credit-card">Credit Card</option>
+                    <option value="investment">Investment Account</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" placeholder="Enter your full name">
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="Enter your email">
+            </div>
+            <div class="form-actions">
+                <button class="action-button secondary" id="cancelAddAccount">Cancel</button>
+                <button class="action-button" id="submitAddAccount">Continue</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Browse Offers Modal -->
+    <div class="modal" id="browseOffersModal">
+        <div class="modal-content">
+            <span class="modal-close" id="closeBrowseOffersModal">&times;</span>
+            <h2 class="modal-title">Special Offers</h2>
+            <div class="service-card">
+                <div class="service-title">
+                    <i class="fas fa-gift"></i>
+                    Welcome Bonus
+                </div>
+                <p class="service-description">Get $300 when you open a new all-inclusive banking plan and set up two recurring direct deposits or bill payments.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-title">
+                    <i class="fas fa-plane"></i>
+                    Travel Rewards
+                </div>
+                <p class="service-description">Earn 50,000 bonus points with our TD First Class Travel Visa Infinite Card. Enough for a round-trip flight anywhere in North America.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-title">
+                    <i class="fas fa-home"></i>
+                    Mortgage Cashback
+                </div>
+                <p class="service-description">Get up to $3,000 cash back when you switch your mortgage to TD. Limited time offer.</p>
+            </div>
+            <div class="form-actions">
+                <button class="action-button" id="closeOffersModal">Close</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Service Detail Modal -->
+    <div class="modal" id="serviceDetailModal">
+        <div class="modal-content">
+            <span class="modal-close" id="closeServiceDetailModal">&times;</span>
+            <h2 class="modal-title" id="serviceDetailTitle">Service Details</h2>
+            <div id="serviceDetailContent">
+                <!-- Content will be loaded dynamically -->
+            </div>
+            <div class="form-actions">
+                <button class="action-button secondary" id="cancelServiceDetail">Back</button>
+                <button class="action-button" id="applyForService">Apply Now</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const addAccountBtn = document.getElementById('addAccountBtn');
+        const browseOffersBtn = document.getElementById('browseOffersBtn');
+        const contactAdvisorBtn = document.getElementById('contactAdvisorBtn');
+        const bookAppointmentBtn = document.getElementById('bookAppointmentBtn');
+        
+        const addAccountModal = document.getElementById('addAccountModal');
+        const browseOffersModal = document.getElementById('browseOffersModal');
+        const serviceDetailModal = document.getElementById('serviceDetailModal');
+        
+        const closeAddAccountModal = document.getElementById('closeAddAccountModal');
+        const closeBrowseOffersModal = document.getElementById('closeBrowseOffersModal');
+        const closeServiceDetailModal = document.getElementById('closeServiceDetailModal');
+        
+        const cancelAddAccount = document.getElementById('cancelAddAccount');
+        const closeOffersModal = document.getElementById('closeOffersModal');
+        const cancelServiceDetail = document.getElementById('cancelServiceDetail');
+        
+        const submitAddAccount = document.getElementById('submitAddAccount');
+        const applyForService = document.getElementById('applyForService');
+        
+        const serviceCards = document.querySelectorAll('.service-card');
+        const serviceDetailTitle = document.getElementById('serviceDetailTitle');
+        const serviceDetailContent = document.getElementById('serviceDetailContent');
+        
+        // Service details data
+        const serviceDetails = {
+            'bank-accounts': {
+                title: 'Bank Accounts',
+                content: `
+                    <p>TD offers a variety of bank accounts to suit your financial needs:</p>
+                    <ul style="margin: 15px 0; padding-left: 20px;">
+                        <li><strong>Everyday Chequing Account</strong> - Perfect for daily transactions with unlimited debit transactions</li>
+                        <li><strong>High Interest Savings Account</strong> - Earn competitive interest on your savings</li>
+                        <li><strong>US Dollar Account</strong> - Manage US funds with ease</li>
+                        <li><strong>Student Account</strong> - Special benefits for students with no monthly fee</li>
+                    </ul>
+                    <p>All our accounts come with access to TD's award-winning mobile banking app, 24/7 customer support, and access to over 1,100 branches across Canada.</p>
+                `
+            },
+            'credit-cards': {
+                title: 'Credit Cards',
+                content: `
+                    <p>Choose from our selection of credit cards designed to match your lifestyle:</p>
+                    <ul style="margin: 15px 0; padding-left: 20px;">
+                        <li><strong>TD Cash Back Visa Infinite*</strong> - Earn up to 3% cash back on purchases</li>
+                        <li><strong>TD First Class Travel Visa Infinite*</strong> - Collect points for travel with no blackout periods</li>
+                        <li><strong>TD Rewards Visa* Card</strong> - Flexible rewards with no annual fee</li>
+                        <li><strong>TD Emerald Visa* Card</strong> - Premium card for high-net-worth clients</li>
+                    </ul>
+                    <p>All TD credit cards include purchase security, extended warranty, and fraud protection.</p>
+                `
+            },
+            'mortgages': {
+                title: 'Mortgages',
+                content: `
+                    <p>TD offers flexible mortgage solutions for home buyers:</p>
+                    <ul style="margin: 15px 0; padding-left: 20px;">
+                        <li><strong>Fixed Rate Mortgages</strong> - Lock in your rate for peace of mind</li>
+                        <li><strong>Variable Rate Mortgages</strong> - Take advantage of potential rate decreases</li>
+                        <li><strong>TD Cash Back Mortgage</strong> - Get cash back to help with moving expenses</li>
+                        <li><strong>Refinancing Options</strong> - Access your home equity for renovations or debt consolidation</li>
+                    </ul>
+                    <p>Our mortgage specialists can help you find the right solution with competitive rates and flexible payment options.</p>
+                `
+            },
+            'borrowing': {
+                title: 'Borrowing Options',
+                content: `
+                    <p>TD provides various borrowing solutions for your financial needs:</p>
+                    <ul style="margin: 15px 0; padding-left: 20px;">
+                        <li><strong>Personal Loans</strong> - Fixed payments for predictable budgeting</li>
+                        <li><strong>Lines of Credit</strong> - Flexible access to funds when you need them</li>
+                        <li><strong>Student Lines of Credit</strong> - Special rates for students pursuing education</li>
+                        <li><strong>Home Equity Lines of Credit</strong> - Access the equity in your home at competitive rates</li>
+                    </ul>
+                    <p>Apply online and get a response quickly, or speak with one of our lending specialists for personalized advice.</p>
+                `
+            },
+            'investing': {
+                title: 'Personal Investing',
+                content: `
+                    <p>Grow your wealth with TD's investment solutions:</p>
+                    <ul style="margin: 15px 0; padding-left: 20px;">
+                        <li><strong>Mutual Funds</strong> - Professionally managed portfolios for various risk levels</li>
+                        <li><strong>GICs</strong> - Guaranteed returns with flexible terms</li>
+                        <li><strong>RRSPs</strong> - Save for retirement with tax advantages</li>
+                        <li><strong>TFSAs</strong> - Grow your savings tax-free</li>
+                        <li><strong>RESPs</strong> - Save for a child's education with government grants</li>
+                    </ul>
+                    <p>Our investment advisors can help you create a personalized plan to meet your financial goals.</p>
+                `
+            },
+            'travel-medical': {
+                title: 'Travel and Medical Insurance',
+                content: `
+                    <p>Protect yourself and your family with TD's insurance solutions:</p>
+                    <ul style="margin: 15px 0; padding-left: 20px;">
+                        <li><strong>Travel Medical Insurance</strong> - Emergency medical coverage when traveling abroad</li>
+                        <li><strong>Trip Cancellation Insurance</strong> - Protection for prepaid travel expenses</li>
+                        <li><strong>Baggage Insurance</strong> - Coverage for lost, stolen, or damaged luggage</li>
+                        <li><strong>Flight Delay Insurance</strong> - Compensation for qualifying flight delays</li>
+                    </ul>
+                    <p>Many of our credit cards include travel insurance benefits, or you can purchase standalone policies for comprehensive coverage.</p>
+                `
+            },
+            'insurance': {
+                title: 'Insurance Products',
+                content: `
+                    <p>TD offers a wide range of insurance products for your protection needs:</p>
+                    <ul style="margin: 15px 0; padding-left: 20px;">
+                        <li><strong>Life Insurance</strong> - Financial protection for your loved ones</li>
+                        <li><strong>Critical Illness Insurance</strong> - Lump-sum payment if diagnosed with a covered illness</li>
+                        <li><strong>Disability Insurance</strong> - Income replacement if you're unable to work due to illness or injury</li>
+                        <li><strong>Home Insurance</strong> - Protection for your property and belongings</li>
+                        <li><strong>Auto Insurance</strong> - Coverage for your vehicle and liability protection</li>
+                    </ul>
+                    <p>Get a quote online or speak with one of our insurance specialists to find the right coverage for your needs.</p>
+                `
+            },
+            'direct-investing': {
+                title: 'TD Direct Investing',
+                content: `
+                    <p>Advanced trading platform for self-directed investors:</p>
+                    <ul style="margin: 15px 0; padding-left: 20px;">
+                        <li><strong>Stock Trading</strong> - Trade stocks on Canadian and U.S. exchanges</li>
+                        <li><strong>Options Trading</strong> - Advanced strategies for experienced investors</li>
+                        <li><strong>Research Tools</strong> - Access to professional-grade research and analysis</li>
+                        <li><strong>Mobile Trading</strong> - Trade on the go with our advanced mobile app</li>
+                        <li><strong>WebBroker Platform</strong> - Powerful online trading with real-time data</li>
+                    </ul>
+                    <p>Perfect for active traders who want control over their investment decisions with access to comprehensive tools and research.</p>
+                `
+            },
+            'easy-trade': {
+                title: 'TD Easy Trade',
+                content: `
+                    <p>Simple investing for beginners and casual investors:</p>
+                    <ul style="margin: 15px 0; padding-left: 20px;">
+                        <li><strong>Commission-Free Trades</strong> - Buy and sell ETFs with no trading fees</li>
+                        <li><strong>Simple Interface</strong> - Easy-to-use platform designed for beginners</li>
+                        <li><strong>Fractional Shares</strong> - Invest in expensive stocks with any amount</li>
+                        <li><strong>Automated Investing</strong> - Set up recurring investments to build wealth over time</li>
+                        <li><strong>Educational Resources</strong> - Learn about investing with our guided resources</li>
+                    </ul>
+                    <p>Start investing with as little as $25 and build your portfolio with our simple, straightforward platform.</p>
+                `
+            }
+        };
+        
+        // Event Listeners
+        addAccountBtn.addEventListener('click', () => {
+            addAccountModal.style.display = 'flex';
+        });
+        
+        browseOffersBtn.addEventListener('click', () => {
+            browseOffersModal.style.display = 'flex';
+        });
+        
+        contactAdvisorBtn.addEventListener('click', () => {
+            alert('Thank you for your interest! A TD advisor will contact you within 24 hours.');
+        });
+        
+        bookAppointmentBtn.addEventListener('click', () => {
+            alert('Redirecting to appointment booking system...');
+            // In a real application, this would redirect to an appointment booking page
+        });
+        
+        // Close modals
+        closeAddAccountModal.addEventListener('click', () => {
+            addAccountModal.style.display = 'none';
+        });
+        
+        closeBrowseOffersModal.addEventListener('click', () => {
+            browseOffersModal.style.display = 'none';
+        });
+        
+        closeServiceDetailModal.addEventListener('click', () => {
+            serviceDetailModal.style.display = 'none';
+        });
+        
+        cancelAddAccount.addEventListener('click', () => {
+            addAccountModal.style.display = 'none';
+        });
+        
+        closeOffersModal.addEventListener('click', () => {
+            browseOffersModal.style.display = 'none';
+        });
+        
+        cancelServiceDetail.addEventListener('click', () => {
+            serviceDetailModal.style.display = 'none';
+        });
+        
+        // Submit add account form
+        submitAddAccount.addEventListener('click', () => {
+            const accountType = document.getElementById('accountType').value;
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            
+            if (!accountType || !fullName || !email) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            alert(`Thank you ${fullName}! We've received your request for a ${accountType} account and will contact you at ${email} shortly.`);
+            addAccountModal.style.display = 'none';
+            
+            // Reset form
+            document.getElementById('accountType').value = '';
+            document.getElementById('fullName').value = '';
+            document.getElementById('email').value = '';
+        });
+        
+        // Apply for service
+        applyForService.addEventListener('click', () => {
+            alert('Redirecting to application form...');
+            serviceDetailModal.style.display = 'none';
+        });
+        
+        // Service card clicks
+        serviceCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const service = card.getAttribute('data-service');
+                const detail = serviceDetails[service];
+                
+                if (detail) {
+                    serviceDetailTitle.textContent = detail.title;
+                    serviceDetailContent.innerHTML = detail.content;
+                    serviceDetailModal.style.display = 'flex';
+                }
+            });
+        });
+        
+        // Close modals when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === addAccountModal) {
+                addAccountModal.style.display = 'none';
+            }
+            if (e.target === browseOffersModal) {
+                browseOffersModal.style.display = 'none';
+            }
+            if (e.target === serviceDetailModal) {
+                serviceDetailModal.style.display = 'none';
+            }
+        });
+        
+        // Mobile menu toggle
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+        const userActions = document.querySelector('.user-actions');
+        
+        mobileMenu.addEventListener('click', () => {
+            // In a real application, this would toggle a mobile menu
+            alert('Mobile menu would open here. In a real application, this would show navigation options.');
+        });
+    </script>
+</body>
+</html>

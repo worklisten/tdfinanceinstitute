@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Locations</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f0f7f0;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        .container {
+            display: flex;
+            flex: 1;
+        }
+        
+        .sidebar {
+            width: 350px;
+            background-color: white;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header {
+            background-color: #2e7d32;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo {
+            height: 30px;
+            width: auto;
+        }
+        
+        .header h1 {
+            font-size: 18px;
+            font-weight: normal;
+        }
+        
+        .search-container {
+            padding: 15px 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .search-box {
+            display: flex;
+            align-items: center;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+            padding: 8px 12px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .search-box input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: 8px;
+            font-size: 16px;
+            outline: none;
+        }
+        
+        .search-box input::placeholder {
+            color: #999;
+        }
+        
+        .locations-list {
+            list-style-type: none;
+            flex: 1;
+            overflow-y: auto;
+        }
+        
+        .location-item {
+            padding: 15px 20px;
+            border-bottom: 1px solid #e0e0e0;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .location-item:hover, .location-item.active {
+            background-color: #e8f5e9;
+        }
+        
+        .location-name {
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .location-address {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .map-container {
+            flex: 1;
+            position: relative;
+        }
+        
+        #map {
+            height: 100%;
+            width: 100%;
+        }
+        
+        .map-controls {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: white;
+            border-radius: 4px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+            overflow: hidden;
+            display: flex;
+        }
+        
+        .map-btn {
+            padding: 10px 15px;
+            background: white;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        
+        .map-btn:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .map-btn.active {
+            background-color: #2e7d32;
+            color: white;
+        }
+        
+        .footer {
+            padding: 15px 20px;
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            background-color: white;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .map-legend {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: white;
+            border-radius: 4px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+            padding: 10px 15px;
+            font-size: 14px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .us-color {
+            background-color: #4caf50;
+        }
+        
+        .canada-color {
+            background-color: #2e7d32;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: 40vh;
+            }
+            
+            .map-container {
+                height: 60vh;
+            }
+            
+            .header h1 {
+                font-size: 16px;
+            }
+            
+            .logo {
+                height: 25px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header {
+                padding: 12px 15px;
+            }
+            
+            .header h1 {
+                font-size: 14px;
+            }
+            
+            .logo {
+                height: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="header">
+                <div class="header-content">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Toronto-Dominion_Bank_logo.svg" alt="TD Bank Logo" class="logo">
+                    <h1>Find Locations</h1>
+                </div>
+            </div>
+            
+            <div class="search-container">
+                <div class="search-box">
+                    <input type="text" placeholder="Q Street, City, Province or Postal Code">
+                </div>
+            </div>
+            
+            <ul class="locations-list">
+                <li class="location-item active" data-lat="40.7128" data-lng="-74.0060" data-country="us">
+                    <div class="location-name">MAMA ZAKA STREET</div>
+                    <div class="location-address">NEW YORK, NY 10001</div>
+                </li>
+                <li class="location-item" data-lat="46.8139" data-lng="-71.2080" data-country="ca">
+                    <div class="location-name">CANADA OFFICE</div>
+                    <div class="location-address">QUEBEC CITY, QC G1R 4P3</div>
+                </li>
+                <li class="location-item" data-lat="43.6532" data-lng="-79.3832" data-country="ca">
+                    <div class="location-name">Phidel College</div>
+                    <div class="location-address">TORONTO, ON M5H 2N2</div>
+                </li>
+                <li class="location-item" data-lat="49.2827" data-lng="-123.1207" data-country="ca">
+                    <div class="location-name">OLADUN STREET</div>
+                    <div class="location-address">VANCOUVER, BC V6B 4M8</div>
+                </li>
+                <li class="location-item" data-lat="41.8781" data-lng="-87.6298" data-country="us">
+                    <div class="location-name">MapS Legal</div>
+                    <div class="location-address">CHICAGO, IL 60601</div>
+                </li>
+                <li class="location-item" data-lat="45.5017" data-lng="-73.5673" data-country="ca">
+                    <div class="location-name">Legal Road</div>
+                    <div class="location-address">MONTREAL, QC H3A 0G4</div>
+                </li>
+                <li class="location-item" data-lat="37.7749" data-lng="-122.4194" data-country="us">
+                    <div class="location-name">California Branch</div>
+                    <div class="location-address">SAN FRANCISCO, CA 94102</div>
+                </li>
+                <li class="location-item" data-lat="51.0447" data-lng="-114.0719" data-country="ca">
+                    <div class="location-name">Western Office</div>
+                    <div class="location-address">CALGARY, AB T2P 1J9</div>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="map-container">
+            <div id="map"></div>
+            <div class="map-controls">
+                <button class="map-btn active" id="us-map-btn">US Map</button>
+                <button class="map-btn" id="canada-map-btn">Canada Map</button>
+            </div>
+            <div class="map-legend">
+                <div class="legend-item">
+                    <div class="legend-color us-color"></div>
+                    <span>US Locations</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color canada-color"></div>
+                    <span>Canada Locations</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        &copy; 2023 Location Finder | MapS Legal
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // Initialize the map
+        let map = L.map('map').setView([45.5017, -73.5673], 4);
+        
+        // Add tile layer for US map
+        let usTileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+        
+        // Create marker cluster group
+        let markers = L.layerGroup().addTo(map);
+        
+        // Add markers for locations
+        const locations = [
+            { name: "MAMA ZAKA STREET", lat: 40.7128, lng: -74.0060, address: "NEW YORK, NY 10001", country: "us" },
+            { name: "CANADA OFFICE", lat: 46.8139, lng: -71.2080, address: "QUEBEC CITY, QC G1R 4P3", country: "ca" },
+            { name: "Phidel College", lat: 43.6532, lng: -79.3832, address: "TORONTO, ON M5H 2N2", country: "ca" },
+            { name: "OLADUN STREET", lat: 49.2827, lng: -123.1207, address: "VANCOUVER, BC V6B 4M8", country: "ca" },
+            { name: "MapS Legal", lat: 41.8781, lng: -87.6298, address: "CHICAGO, IL 60601", country: "us" },
+            { name: "Legal Road", lat: 45.5017, lng: -73.5673, address: "MONTREAL, QC H3A 0G4", country: "ca" },
+            { name: "California Branch", lat: 37.7749, lng: -122.4194, address: "SAN FRANCISCO, CA 94102", country: "us" },
+            { name: "Western Office", lat: 51.0447, lng: -114.0719, address: "CALGARY, AB T2P 1J9", country: "ca" }
+        ];
+        
+        // Function to add markers to the map
+        function addMarkers(country = 'all') {
+            markers.clearLayers();
+            
+            locations.forEach(location => {
+                if (country === 'all' || location.country === country) {
+                    const markerColor = location.country === 'us' ? '#4caf50' : '#2e7d32';
+                    
+                    // Create a custom icon
+                    const customIcon = L.divIcon({
+                        className: 'custom-marker',
+                        html: `<div style="background-color: ${markerColor}; width: 12px; height: 12px; border-radius: 50%; border: 2px solid white; box-shadow: 0 2px 5px rgba(0,0,0,0.3);"></div>`,
+                        iconSize: [16, 16],
+                        iconAnchor: [8, 8]
+                    });
+                    
+                    const marker = L.marker([location.lat, location.lng], {icon: customIcon})
+                        .bindPopup(`<b>${location.name}</b><br>${location.address}`)
+                        .addTo(markers);
+                }
+            });
+        }
+        
+        // Initial markers
+        addMarkers('all');
+        
+        // Map controls
+        document.getElementById('us-map-btn').addEventListener('click', function() {
+            map.setView([39.8283, -98.5795], 4);
+            addMarkers('us');
+            
+            document.getElementById('us-map-btn').classList.add('active');
+            document.getElementById('canada-map-btn').classList.remove('active');
+        });
+        
+        document.getElementById('canada-map-btn').addEventListener('click', function() {
+            map.setView([56.1304, -106.3468], 4);
+            addMarkers('ca');
+            
+            document.getElementById('canada-map-btn').classList.add('active');
+            document.getElementById('us-map-btn').classList.remove('active');
+        });
+        
+        // Location list functionality
+        const locationItems = document.querySelectorAll('.location-item');
+        const searchInput = document.querySelector('.search-box input');
+        
+        // Focus the search input on page load
+        searchInput.focus();
+        
+        // Add search functionality
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            
+            locationItems.forEach(item => {
+                const locationName = item.querySelector('.location-name').textContent.toLowerCase();
+                const locationAddress = item.querySelector('.location-address').textContent.toLowerCase();
+                
+                if (locationName.includes(searchTerm) || locationAddress.includes(searchTerm)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+        
+        // Add click functionality to location items
+        locationItems.forEach(item => {
+            item.addEventListener('click', function() {
+                // Remove active class from all items
+                locationItems.forEach(i => i.classList.remove('active'));
+                
+                // Add active class to clicked item
+                this.classList.add('active');
+                
+                // Get location coordinates
+                const lat = parseFloat(this.getAttribute('data-lat'));
+                const lng = parseFloat(this.getAttribute('data-lng'));
+                const country = this.getAttribute('data-country');
+                
+                // Center map on location
+                map.setView([lat, lng], 10);
+                
+                // Update map view based on country
+                if (country === 'us') {
+                    document.getElementById('us-map-btn').classList.add('active');
+                    document.getElementById('canada-map-btn').classList.remove('active');
+                } else {
+                    document.getElementById('canada-map-btn').classList.add('active');
+                    document.getElementById('us-map-btn').classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

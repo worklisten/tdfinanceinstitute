@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TD Digital Banking</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .background-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            z-index: -1;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 420px;
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .header {
+            background-color: white;
+            padding: 40px 30px 20px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .logo-container {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 20px;
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+        }
+        
+        .logo {
+            color: white;
+            font-size: 36px;
+            font-weight: bold;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.5;
+        }
+        
+        .content {
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .button {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            margin: 15px 0;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .primary-button {
+            background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+            color: white;
+        }
+        
+        .primary-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(76, 175, 80, 0.3);
+        }
+        
+        .secondary-button {
+            background-color: white;
+            color: #2E7D32;
+            border: 2px solid #2E7D32;
+        }
+        
+        .secondary-button:hover {
+            background-color: rgba(46, 125, 50, 0.05);
+            transform: translateY(-2px);
+        }
+        
+        .footer {
+            padding: 20px;
+            text-align: center;
+            color: #888;
+            font-size: 14px;
+            border-top: 1px solid #eee;
+        }
+        
+        .features {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+            padding: 0 20px;
+        }
+        
+        .feature {
+            text-align: center;
+            padding: 10px;
+        }
+        
+        .feature i {
+            font-size: 20px;
+            color: #4CAF50;
+            margin-bottom: 8px;
+        }
+        
+        .feature p {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                max-width: 100%;
+            }
+            
+            .header {
+                padding: 30px 20px 15px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-pattern"></div>
+    
+    <div class="container">
+        <div class="header">
+            <div class="logo-container">
+                <div class="logo">TD</div>
+            </div>
+            <h1>Welcome to TD</h1>
+            <p>Let's get started with digital banking.</p>
+        </div>
+        
+        <div class="content">
+            <button class="button primary-button">Get Started</button>
+            <button class="button secondary-button">Log In</button>
+            
+            <div class="features">
+                <div class="feature">
+                    <i class="fas fa-shield-alt"></i>
+                    <p>Secure</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-mobile-alt"></i>
+                    <p>Mobile</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-clock"></i>
+                    <p>24/7 Access</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>©TD Bank. All rights reserved.</p>
+        </div>
+    </div>
+
+    <script>
+        // Add functionality to buttons
+        document.querySelector('.primary-button').addEventListener('click', function() {
+            window.location.href='createaccount.html';
+        });
+        
+        document.querySelector('.secondary-button').addEventListener('click', function() {
+            window.location.href='tdcanada.html';
+        });
+    </script>
+</body>
+</html>
